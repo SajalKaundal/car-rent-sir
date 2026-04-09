@@ -1,0 +1,16 @@
+.car-card {
+  transition: all 0.3s ease;
+}
+
+.car-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.car-card img {
+  transition: transform 0.3s ease;
+}
+
+.car-card:hover img {
+  transform: scale(1.05);
+}

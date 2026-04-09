@@ -1,0 +1,40 @@
+import { Route, Routes, useLocation } from "react-router";
+import CarDetails from "./pages/CarDetails";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import Cars from "./pages/Cars";
+import MyBookings from "./pages/MyBookings";
+import Footer from "./components/Footer";
+import AddCar from "./pages/owner/AddCar";
+import Dashboard from "./pages/owner/Dashboard";
+import ManageBookings from "./pages/owner/ManageBookings";
+import ManageCars from "./pages/owner/ManageCars";
+import NotFound from "./pages/NotFound";
+import EditCar from "./pages/owner/EditCar";
+import ListYourCar from "./pages/ListYourCar";
+const App = () => {
+  const isOwnerPath = useLocation().pathname.startsWith("/owner");
+  return (
+    <div>
+      {!isOwnerPath && <Navbar />}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/cars" element={<Cars />} />
+        <Route path="/car-details/:id" element={<CarDetails />} />
+        <Route path="/my-bookings" element={<MyBookings />} />
+        <Route path="/list-your-car" element={<ListYourCar />} />
+        <Route path="/owner/dashboard" element={<Dashboard />}>
+          <Route index element={<AddCar />} />
+          <Route path="manage-bookings" element={<ManageBookings />} />
+          <Route path="manage-cars" element={<ManageCars />} />
+          <Route path="edit-car/:id" element={<EditCar />} />
+        </Route>
+
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      {!isOwnerPath && <Footer />}
+    </div>
+  );
+};
+
+export default App;

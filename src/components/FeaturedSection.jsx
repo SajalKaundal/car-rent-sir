@@ -1,0 +1,44 @@
+import Title from "./Title";
+import { dummyCarData } from "../assets/assests";
+import CarCard from "./CarCard";
+import { useNavigate } from "react-router";
+// import { useState } from "react";
+
+const FeaturedSection = () => {
+  const navigate = useNavigate();
+  // const [visibleCars, setVisibleCars] = useState(3);
+  return (
+    <div className="container mt-5">
+      <div>
+        <Title
+          title="Featured Vehicles"
+          subTitle="Explore our selection of premium vehicles available for your next adventure"
+        />
+      </div>
+
+      <div className="row gy-3">
+        {dummyCarData.slice(0,3).map((car) => (
+          <div key={car._id} className="col-lg-4">
+            <CarCard car={car} />
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-3">
+        <div className="d-grid gap-2 d-md-flex justify-content-md-center">
+          <button
+            className="btn btn-primary me-md-2"
+            onClick={() => {
+              // setVisibleCars(visibleCars+3)
+            navigate("/cars")
+          }}
+          >
+            Explore all Cars
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default FeaturedSection;
