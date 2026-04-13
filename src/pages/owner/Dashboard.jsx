@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { dummyDashboardData } from "../../assets/assests";
 import OwnerNavBar from "../../components/owner/OwnerNavBar";
 import { NavLink, Outlet } from "react-router-dom";
-import Title from "../../components/owner/Title";
+
 function Dashboard() {
   const [dashboardData, setDashboardData] = useState({});
   useEffect(() => {

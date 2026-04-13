@@ -47,10 +47,10 @@ function ManageBookings() {
                 </td>
 
                 <td>
-                  <button className="btn btn-sm btn-success me-2">
+                  <button disabled={b.status==="confirmed"||b.status==="cancelled"} className="btn btn-sm btn-success me-2">
                     Approve
                   </button>
-                  <button className="btn btn-sm btn-danger">
+                  <button disabled={b.status==="cancelled"} className="btn btn-sm btn-danger">
                     Cancel
                   </button>
                 </td>
