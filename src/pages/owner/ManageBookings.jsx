@@ -37,7 +37,7 @@ function ManageBookings() {
                 <td>
                   <span
                     className={`badge ${
-                      b.status === "Confirmed"
+                      b.status === "confirmed"
                         ? "bg-success"
                         : "bg-warning text-dark"
                     }`}

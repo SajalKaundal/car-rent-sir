@@ -1,4 +1,4 @@
-import { lazy, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { dummyCarData } from "../../assets/assests";
 import { useNavigate } from "react-router";
 
