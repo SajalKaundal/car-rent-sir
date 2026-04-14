@@ -2,7 +2,7 @@ import { CiSearch } from "react-icons/ci";
 import { MdCarRental } from "react-icons/md";
 import { NavLink, useNavigate } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({setLoggedIn}) => {
   const navigate = useNavigate();
   return (
     <div>
@@ -60,7 +60,8 @@ const Navbar = () => {
               <div className="d-flex my-1 mx-1">
                 <button
                   className="btn btn-primary"
-                  onClick={() => navigate("/login")}
+                  // onClick={() => navigate("/")}
+                  onClick={()=>setLoggedIn(prev=>!prev)}
                 >
                   Login
                 </button>

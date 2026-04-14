@@ -12,11 +12,20 @@ import ManageCars from "./pages/owner/ManageCars";
 import NotFound from "./pages/NotFound";
 import EditCar from "./pages/owner/EditCar";
 import ListYourCar from "./pages/ListYourCar";
+import Login from "./pages/Login";
+import { useState } from "react";
+
 const App = () => {
   const isOwnerPath = useLocation().pathname.startsWith("/owner");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
-    <div>
-      {!isOwnerPath && <Navbar />}
+    <div
+      style={{
+        overflow: isLoggedIn ? "auto" : "hidden",
+        height: isLoggedIn ? "auto" : "100vh",
+      }}
+    >
+      {!isOwnerPath && <Navbar setIsLoggedIn={setIsLoggedIn}/>}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/cars" element={<Cars />} />
@@ -32,6 +41,7 @@ const App = () => {
 
         <Route path="*" element={<NotFound />} />
       </Routes>
+      {isLoggedIn || <Login setIsLoggedIn={setIsLoggedIn} />}
       {!isOwnerPath && <Footer />}
     </div>
   );
