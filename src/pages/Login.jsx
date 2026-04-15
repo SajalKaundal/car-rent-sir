@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { IoEye, IoEyeOff } from "react-icons/io5";
-import "./Login.css"
-export default function Login({setIsLoggedIn}) {
+import "./Login.css";
+export default function Login({ setIsLoggedIn, setShowSignUp }) {
   const [showPassword, setShowPassword] = useState(true);
 
   return (
@@ -39,17 +39,30 @@ export default function Login({setIsLoggedIn}) {
           </div>
 
           {/* Button */}
-          <button className="btn btn-primary w-100 mt-2" onClick={()=>setIsLoggedIn((prev)=>!prev)}>
+          <button
+            className="btn btn-primary w-100 mt-2"
+            onClick={() => {
+              setIsLoggedIn((prev) => !prev);
+            }}
+          >
             Login
           </button>
 
           {/* Extra */}
           <p className="text-center mt-3 small text-muted">
-            Don't have an account? <span className="text-primary">Sign up</span>
+            Don't have an account?{" "}
+            <span
+              className="text-primary"
+              onClick={() => {
+                setIsLoggedIn((prev) => !prev);
+                setShowSignUp((prev) => !prev);
+              }}
+            >
+              Sign up
+            </span>
           </p>
         </form>
       </div>
     </div>
   );
 }
-
