@@ -1,6 +1,5 @@
 import OtpInput from "./components/OtpInput";
 import "./OtpVerification.css";
-import { IoClose } from "react-icons/io5";
 
 export default function OtpVerification({ setAuthScreen }) {
   return (
@@ -8,12 +7,10 @@ export default function OtpVerification({ setAuthScreen }) {
       <div className="auth-modal">
 
         {/* Close button */}
-        <button 
-          className="close-btn"
+         <button
+          className="btn-close position-absolute top-0 end-0 m-3"
           onClick={() => setAuthScreen("login")}
-        >
-          <IoClose/>
-        </button>
+        ></button>
 
         <form
           onSubmit={(e) => {

@@ -1,5 +1,4 @@
 import "./ForgotPassword.css";
-import { IoClose } from "react-icons/io5";
 
 function ForgotPassword({ setAuthScreen }) {
   return (
@@ -7,12 +6,10 @@ function ForgotPassword({ setAuthScreen }) {
       <div className="auth-modal">
 
         {/* Close Button */}
-        <button 
-          className="close-btn"
+         <button
+          className="btn-close position-absolute top-0 end-0 m-3"
           onClick={() => setAuthScreen("login")}
-        >
-          <IoClose/>
-        </button>
+        ></button>
 
         {/* Title */}
         <h3 className="auth-title">Forgot Password</h3>

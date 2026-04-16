@@ -2,7 +2,7 @@ import { CiSearch } from "react-icons/ci";
 import { MdCarRental } from "react-icons/md";
 import { NavLink, useNavigate } from "react-router-dom";
 
-const Navbar = ({setLoggedIn}) => {
+const Navbar = ({setAuthScreen}) => {
   const navigate = useNavigate();
   return (
     <div>
@@ -61,7 +61,7 @@ const Navbar = ({setLoggedIn}) => {
                 <button
                   className="btn btn-primary"
                   // onClick={() => navigate("/")}
-                  onClick={()=>setLoggedIn(prev=>!prev)}
+                  onClick={()=>setAuthScreen("login")}
                 >
                   Login
                 </button>

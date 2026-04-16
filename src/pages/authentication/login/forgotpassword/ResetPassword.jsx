@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "./ResetPassword.css";
-import { IoClose } from "react-icons/io5";
 
 export default function ResetPassword({ setAuthScreen }) {
   const [form, setForm] = useState({
@@ -34,9 +33,10 @@ export default function ResetPassword({ setAuthScreen }) {
     <div className="auth-overlay">
       <div className="auth-modal">
         {/* Close Button */}
-        <button className="close-btn" onClick={() => setAuthScreen("login")}>
-          <IoClose />
-        </button>
+         <button
+          className="btn-close position-absolute top-0 end-0 m-3"
+          onClick={() => setAuthScreen("login")}
+        ></button>
 
         <form onSubmit={handleSubmit}>
           {/* Title */}

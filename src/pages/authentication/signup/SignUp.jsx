@@ -2,7 +2,7 @@ import { useState } from "react";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import "./SignUp.css";
 
-function Signup({ setAuthScreen }) {
+function SignUp({ setAuthScreen }) {
   const [showPassword, setShowPassword] = useState(true);
   const [showConfirm, setShowConfirm] = useState(true);
 
@@ -133,4 +133,4 @@ function Signup({ setAuthScreen }) {
   );
 }
 
-export default Signup;
+export default SignUp;

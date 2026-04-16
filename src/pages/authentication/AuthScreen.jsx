@@ -1,5 +1,5 @@
 import Login from "./login/Login";
-import Signup from "./signup/SignUp";
+import SignUp from "./signup/SignUp";
 import ForgotPassword from "./login/forgotpassword/ForgotPassword";
 import OtpVerification from "./login/forgotpassword/OtpVerification";
 import ResetPassword from "./login/forgotpassword/ResetPassword";

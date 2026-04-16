@@ -18,11 +18,12 @@ import { useState } from "react";
 const App = () => {
   const isOwnerPath = useLocation().pathname.startsWith("/owner");
   const [authScreen, setAuthScreen] = useState("login");
+  console.log(authScreen)
   return (
     <div
       style={{
-        overflow: authScreen ? "auto" : "hidden",
-        height: authScreen ? "auto" : "100vh",
+        overflow: !authScreen ? "auto" : "hidden",
+        height: !authScreen ? "auto" : "100vh",
       }}
     >
       {!isOwnerPath && <Navbar setAuthScreen={setAuthScreen} />}
