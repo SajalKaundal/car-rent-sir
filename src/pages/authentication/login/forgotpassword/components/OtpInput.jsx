@@ -1,5 +1,5 @@
 import { useRef } from "react";
-
+import "./OtpInput.css"
 export default function OtpInput() {
   const ref1 = useRef();
   const ref2 = useRef();
