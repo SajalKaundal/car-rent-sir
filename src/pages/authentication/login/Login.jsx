@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import "./Login.css";
-export default function Login({ setIsLoggedIn, setShowSignUp }) {
+export default function Login({ setAuthScreen }) {
   const [showPassword, setShowPassword] = useState(true);
 
   return (
@@ -36,14 +36,14 @@ export default function Login({ setIsLoggedIn, setShowSignUp }) {
             >
               {showPassword ? <IoEye /> : <IoEyeOff />}
             </span>
-            <span className="forgot-password text-primary">forgot password</span>
+            <span className="forgot-password text-primary" onClick={()=>setAuthScreen("forgotPassword")}>forgot password</span>
           </div>
 
           {/* Button */}
           <button
             className="btn btn-primary w-100 mt-2"
             onClick={() => {
-              setIsLoggedIn((prev) => !prev);
+              setAuthScreen(null);
             }}
           >
             Login
@@ -55,8 +55,7 @@ export default function Login({ setIsLoggedIn, setShowSignUp }) {
             <span
               className="text-primary"
               onClick={() => {
-                setIsLoggedIn((prev) => !prev);
-                setShowSignUp((prev) => !prev);
+                setAuthScreen("signup")
               }}
             >
               Sign up

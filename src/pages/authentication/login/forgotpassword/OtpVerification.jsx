@@ -1,7 +1,8 @@
 import OtpInput from "./components/OtpInput";
 import "./OtpVerification.css";
+import { IoClose } from "react-icons/io5";
 
-export default function OtpVerification({ setScreen }) {
+export default function OtpVerification({ setAuthScreen }) {
   return (
     <div className="auth-overlay">
       <div className="auth-modal">
@@ -9,9 +10,9 @@ export default function OtpVerification({ setScreen }) {
         {/* Close button */}
         <button 
           className="close-btn"
-          onClick={() => setScreen("login")}
+          onClick={() => setAuthScreen("login")}
         >
-          ×
+          <IoClose/>
         </button>
 
         <form
@@ -34,13 +35,13 @@ export default function OtpVerification({ setScreen }) {
           </div>
 
           {/* Button */}
-          <button type="submit" className="btn btn-primary w-100 mt-4">
+          <button type="submit" className="btn btn-primary w-100 mt-4" onClick={()=>setAuthScreen("resetPassword")}>
             Verify OTP
           </button>
 
           {/* Resend */}
           <p className="switch-text mt-3">
-            Didn’t receive code? <span>Resend</span>
+            Didn't receive code? <span>Resend</span>
           </p>
         </form>
 

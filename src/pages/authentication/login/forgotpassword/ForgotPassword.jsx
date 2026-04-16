@@ -1,6 +1,7 @@
 import "./ForgotPassword.css";
+import { IoClose } from "react-icons/io5";
 
-function ForgotPassword({ setScreen }) {
+function ForgotPassword({ setAuthScreen }) {
   return (
     <div className="auth-overlay">
       <div className="auth-modal">
@@ -8,9 +9,9 @@ function ForgotPassword({ setScreen }) {
         {/* Close Button */}
         <button 
           className="close-btn"
-          onClick={() => setScreen("login")}
+          onClick={() => setAuthScreen("login")}
         >
-          ×
+          <IoClose/>
         </button>
 
         {/* Title */}
@@ -18,7 +19,7 @@ function ForgotPassword({ setScreen }) {
 
         {/* Subtitle */}
         <p className="auth-subtitle">
-          Don’t worry, it happens. Enter your registered email.
+          Don't worry, it happens. Enter your registered email.
         </p>
 
         {/* Input */}
@@ -32,14 +33,14 @@ function ForgotPassword({ setScreen }) {
         </div>
 
         {/* Button */}
-        <button className="btn btn-primary w-100 mt-4">
+        <button className="btn btn-primary w-100 mt-4" onClick={()=>setAuthScreen("otpVerification")}>
           Send Code
         </button>
 
         {/* Back to login */}
         <p className="switch-text mt-3">
           Back to{" "}
-          <span onClick={() => setScreen("login")}>
+          <span onClick={() => setAuthScreen("login")}>
             Login
           </span>
         </p>

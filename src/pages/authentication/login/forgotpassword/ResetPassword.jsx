@@ -1,16 +1,17 @@
 import { useState } from "react";
 import "./ResetPassword.css";
+import { IoClose } from "react-icons/io5";
 
-export default function ResetPassword({ setScreen }) {
+export default function ResetPassword({ setAuthScreen }) {
   const [form, setForm] = useState({
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
   });
 
   const handleChange = (e) => {
     setForm({
       ...form,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -26,19 +27,15 @@ export default function ResetPassword({ setScreen }) {
 
     // TODO: call backend API here
 
-    setScreen("login");
+    setAuthScreen("login");
   };
 
   return (
     <div className="auth-overlay">
       <div className="auth-modal">
-
         {/* Close Button */}
-        <button 
-          className="close-btn"
-          onClick={() => setScreen("login")}
-        >
-          ×
+        <button className="close-btn" onClick={() => setAuthScreen("login")}>
+          <IoClose />
         </button>
 
         <form onSubmit={handleSubmit}>
@@ -46,9 +43,7 @@ export default function ResetPassword({ setScreen }) {
           <h3 className="auth-title">Reset Password</h3>
 
           {/* Subtitle */}
-          <p className="auth-subtitle">
-            Enter your new password below
-          </p>
+          <p className="auth-subtitle">Enter your new password below</p>
 
           {/* Password */}
           <div className="form-group mt-3 text-start">
@@ -79,16 +74,19 @@ export default function ResetPassword({ setScreen }) {
           </div>
 
           {/* Button */}
-          <button type="submit" className="btn btn-primary w-100 mt-4">
+          <button
+            type="submit"
+            className="btn btn-primary w-100 mt-4"
+            onClick={() => setAuthScreen("login")}
+          >
             Reset Password
           </button>
 
           {/* Back */}
           <p className="switch-text mt-3">
-            Back to <span onClick={() => setScreen("login")}>Login</span>
+            Back to <span onClick={() => setAuthScreen("login")}>Login</span>
           </p>
         </form>
-
       </div>
     </div>
   );

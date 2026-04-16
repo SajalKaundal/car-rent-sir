@@ -2,7 +2,7 @@ import { useState } from "react";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import "./SignUp.css";
 
-function Signup({ setShowSignUp, setIsLoggedIn }) {
+function Signup({ setAuthScreen }) {
   const [showPassword, setShowPassword] = useState(true);
   const [showConfirm, setShowConfirm] = useState(true);
 
@@ -34,7 +34,7 @@ function Signup({ setShowSignUp, setIsLoggedIn }) {
         {/* Close Button */}
         <button
           className="btn-close position-absolute top-0 end-0 m-3"
-          onClick={() => setShowSignUp(false)}
+          onClick={() => setAuthScreen("login")}
         ></button>
 
         <h3 className="text-center fw-bold mb-4">Create Account</h3>
@@ -108,8 +108,7 @@ function Signup({ setShowSignUp, setIsLoggedIn }) {
           <button
             className="btn btn-primary w-100 mt-2"
             onClick={() => {
-              setIsLoggedIn((prev) => !prev);
-              setShowSignUp((prev) => !prev);
+             setAuthScreen("login")
             }}
           >
             Sign Up
@@ -122,8 +121,7 @@ function Signup({ setShowSignUp, setIsLoggedIn }) {
               className="text-primary"
               style={{ cursor: "pointer" }}
               onClick={() => {
-                setIsLoggedIn((prev) => !prev);
-                setShowSignUp((prev) => !prev);
+               setAuthScreen("login")
               }}
             >
               Login

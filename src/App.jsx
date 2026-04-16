@@ -12,22 +12,20 @@ import ManageCars from "./pages/owner/ManageCars";
 import NotFound from "./pages/NotFound";
 import EditCar from "./pages/owner/EditCar";
 import ListYourCar from "./pages/ListYourCar";
-import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
+import AuthScreen from "./pages/authentication/AuthScreen";
 import { useState } from "react";
 
 const App = () => {
   const isOwnerPath = useLocation().pathname.startsWith("/owner");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [showSignUp, setShowSignUp] = useState(true);
+  const [authScreen, setAuthScreen] = useState("login");
   return (
     <div
       style={{
-        overflow: isLoggedIn && showSignUp ? "auto" : "hidden",
-        height: isLoggedIn && showSignUp ? "auto" : "100vh",
+        overflow: authScreen ? "auto" : "hidden",
+        height: authScreen ? "auto" : "100vh",
       }}
     >
-      {!isOwnerPath && <Navbar setIsLoggedIn={setIsLoggedIn} />}
+      {!isOwnerPath && <Navbar setAuthScreen={setAuthScreen} />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/cars" element={<Cars />} />
@@ -40,14 +38,10 @@ const App = () => {
           <Route path="manage-cars" element={<ManageCars />} />
           <Route path="edit-car/:id" element={<EditCar />} />
         </Route>
-
         <Route path="*" element={<NotFound />} />
       </Routes>
-      {isLoggedIn || (
-        <Login setIsLoggedIn={setIsLoggedIn} setShowSignUp={setShowSignUp} />
-      )}
-      {showSignUp || (
-        <SignUp setShowSignUp={setShowSignUp} setIsLoggedIn={setIsLoggedIn} />
+      {authScreen && (
+        <AuthScreen authScreen={authScreen} setAuthScreen={setAuthScreen} />
       )}
       {!isOwnerPath && <Footer />}
     </div>
