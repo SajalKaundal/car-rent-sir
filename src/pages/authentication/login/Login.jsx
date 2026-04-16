@@ -36,6 +36,7 @@ export default function Login({ setIsLoggedIn, setShowSignUp }) {
             >
               {showPassword ? <IoEye /> : <IoEyeOff />}
             </span>
+            <span className="forgot-password text-primary">forgot password</span>
           </div>
 
           {/* Button */}

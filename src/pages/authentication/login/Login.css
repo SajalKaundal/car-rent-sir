@@ -49,3 +49,10 @@
   box-shadow: none;
   border-color: #0d6efd;
 }
+
+.forgot-password{
+  display: block;
+  font-size: small;
+  text-align: right;
+  text-decoration: underline;
+}
