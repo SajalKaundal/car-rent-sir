@@ -6,7 +6,7 @@ const Hero = () => {
   return (
     <div className="hero-container">
       <img
-        src="https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_auto,w_1200,h_600,c_fill/v1775719488/background_image_b0bbnh.webp"
+        src="https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_50,w_1200,h_600,c_fill/v1775719488/background_image_b0bbnh.webp"
         alt="Luxury Cars"
         className="hero-img"
         loading="lazy"

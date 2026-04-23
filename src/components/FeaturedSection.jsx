@@ -2,11 +2,19 @@ import Title from "./Title";
 import { dummyCarData } from "../assets/assests";
 import CarCard from "./CarCard";
 import { useNavigate } from "react-router";
+import { useEffect, useState } from "react";
 // import { useState } from "react";
-
 const FeaturedSection = () => {
   const navigate = useNavigate();
   // const [visibleCars, setVisibleCars] = useState(3);
+  const [featuredCars, setFeaturedCars] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:5000/?featured=true")
+      .then((res) => res.json())
+      .then((data) => {
+        setFeaturedCars(data.cars)
+      }).catch((err)=> console.error(err));
+  }, []);
   return (
     <div className="container mt-5">
       <div>
@@ -17,7 +25,7 @@ const FeaturedSection = () => {
       </div>
 
       <div className="row gy-3">
-        {dummyCarData.slice(0,3).map((car) => (
+        {featuredCars.map((car) => (
           <div key={car._id} className="col-lg-4">
             <CarCard car={car} />
           </div>
@@ -30,8 +38,8 @@ const FeaturedSection = () => {
             className="btn btn-primary me-md-2"
             onClick={() => {
               // setVisibleCars(visibleCars+3)
-            navigate("/cars")
-          }}
+              navigate("/cars");
+            }}
           >
             Explore all Cars
           </button>

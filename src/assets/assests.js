@@ -1,10 +1,9 @@
-
-
 export const dummyUserData = {
   _id: "user1",
   name: "abc",
   role: "owner",
-  image: "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_auto,w_400,h_400,c_fill/v1775719490/Customer1_i2yo4i.jpg",
+  image:
+    "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_50,w_400,h_400,c_fill/v1775719490/Customer1_i2yo4i.jpg",
 };
 
 export const cityList = [
@@ -21,7 +20,8 @@ export const dummyCarData = [
     _id: "c1",
     owner: "own_1",
     brand: "Mercedes",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719489/Car1_y2mrzi.jpg",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719489/Car1_y2mrzi.jpg",
     year: 2023,
     category: "Sports",
     seating_capacity: 2,
@@ -32,12 +32,14 @@ export const dummyCarData = [
       "Luxury 2-seater sports car with high speed, premium comfort, and advanced technology.",
     isAvailable: true,
     createdAt: "2026-03-24",
+    feature:true
   },
   {
     _id: "c2",
     owner: "own_2",
     brand: "BMW",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719488/Car2_kddiij.webp",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719488/Car2_kddiij.webp",
     year: 2025,
     category: "SUV",
     seating_capacity: 5,
@@ -48,12 +50,14 @@ export const dummyCarData = [
       "Spacious SUV with premium comfort and modern features, perfect for family trips.",
     isAvailable: true,
     createdAt: "2026-03-24",
+     feature:true
   },
   {
     _id: "c3",
     owner: "own_3",
     brand: "Mercedes",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719489/Car3_iwyq82.jpg",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719489/Car3_iwyq82.jpg",
     year: 2020,
     category: "Sedan",
     seating_capacity: 5,
@@ -64,12 +68,14 @@ export const dummyCarData = [
       "Reliable and comfortable sedan with smooth performance and stylish design.",
     isAvailable: true,
     createdAt: "2026-03-20",
+     feature:true
   },
   {
     _id: "c4",
     owner: "own_4",
     brand: "Audi",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719488/Car4_ij6fp9.jpg",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719488/Car4_ij6fp9.jpg",
     year: 2022,
     category: "Sedan",
     seating_capacity: 5,
@@ -80,12 +86,14 @@ export const dummyCarData = [
       "Elegant sedan with advanced safety features and smooth driving experience.",
     isAvailable: true,
     createdAt: "2026-03-18",
+     feature:false
   },
   {
     _id: "c5",
     owner: "own_5",
     brand: "Toyota",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719489/Car5_mbh031.jpg",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719489/Car5_mbh031.jpg",
     year: 2021,
     category: "SUV",
     seating_capacity: 7,
@@ -96,12 +104,14 @@ export const dummyCarData = [
       "Powerful SUV with great mileage and ideal for long road trips.",
     isAvailable: true,
     createdAt: "2026-03-15",
+     feature:false
   },
   {
     _id: "c6",
     owner: "own_6",
     brand: "Hyundai",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719489/Car6_swacgb.jpg",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719489/Car6_swacgb.jpg",
     year: 2023,
     category: "Hatchback",
     seating_capacity: 5,
@@ -112,12 +122,13 @@ export const dummyCarData = [
       "Affordable hatchback with great mileage and compact design for city driving.",
     isAvailable: true,
     createdAt: "2026-03-10",
+     feature:false
   },
   //   {
   //     _id: "c7",
   //     owner: "own_7",
   //     brand: "Kia",
-  //     image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719489/Car7_c3xzhm.jpg",
+  //     image: "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_10/v1775719489/Car7_c3xzhm.jpg",
   //     year: 2024,
   //     category: "SUV",
   //     seating_capacity: 5,
@@ -133,7 +144,8 @@ export const dummyCarData = [
     _id: "c8",
     owner: "own_8",
     brand: "Mahindra",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719490/Car8_q5afha.jpg",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719490/Car8_q5afha.jpg",
     year: 2022,
     category: "SUV",
     seating_capacity: 7,
@@ -143,12 +155,14 @@ export const dummyCarData = [
     description: "Rugged SUV built for tough terrains and long journeys.",
     isAvailable: true,
     createdAt: "2026-03-12",
+     feature:false
   },
   {
     _id: "c9",
     owner: "own_9",
     brand: "Honda",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719490/Car9_rwopfr.jpg",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719490/Car9_rwopfr.jpg",
     year: 2021,
     category: "Sedan",
     seating_capacity: 5,
@@ -159,12 +173,14 @@ export const dummyCarData = [
       "Comfortable sedan with smooth engine performance and premium feel.",
     isAvailable: true,
     createdAt: "2026-03-13",
+     feature:false
   },
   {
     _id: "c10",
     owner: "own_10",
     brand: "Hyundai",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719489/Car1_y2mrzi.jpg",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719489/Car1_y2mrzi.jpg",
     year: 2022,
     category: "SUV",
     seating_capacity: 5,
@@ -174,12 +190,14 @@ export const dummyCarData = [
     description: "Spacious SUV with great mileage and modern features.",
     isAvailable: true,
     createdAt: "2026-03-14",
+     feature:false
   },
   {
     _id: "c11",
     owner: "own_11",
     brand: "Toyota",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719488/Car2_kddiij.webp",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719488/Car2_kddiij.webp",
     year: 2020,
     category: "Sedan",
     seating_capacity: 5,
@@ -189,12 +207,14 @@ export const dummyCarData = [
     description: "Reliable sedan with excellent comfort and durability.",
     isAvailable: true,
     createdAt: "2026-03-15",
+     feature:false
   },
   {
     _id: "c12",
     owner: "own_12",
     brand: "Mahindra",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719489/Car3_iwyq82.jpg",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719489/Car3_iwyq82.jpg",
     year: 2021,
     category: "SUV",
     seating_capacity: 7,
@@ -204,12 +224,14 @@ export const dummyCarData = [
     description: "Powerful SUV perfect for long trips and rough roads.",
     isAvailable: true,
     createdAt: "2026-03-16",
+     feature:false
   },
   {
     _id: "c13",
     owner: "own_13",
     brand: "Kia",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719488/Car4_ij6fp9.jpg",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719488/Car4_ij6fp9.jpg",
     year: 2023,
     category: "SUV",
     seating_capacity: 5,
@@ -219,12 +241,14 @@ export const dummyCarData = [
     description: "Stylish SUV with advanced technology and safety features.",
     isAvailable: true,
     createdAt: "2026-03-17",
+     feature:false
   },
   {
     _id: "c14",
     owner: "own_14",
     brand: "Tata",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719489/Car5_mbh031.jpg",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719489/Car5_mbh031.jpg",
     year: 2022,
     category: "Hatchback",
     seating_capacity: 5,
@@ -234,12 +258,14 @@ export const dummyCarData = [
     description: "Affordable hatchback with solid build quality.",
     isAvailable: true,
     createdAt: "2026-03-18",
+     feature:false
   },
   {
     _id: "c15",
     owner: "own_15",
     brand: "Ford",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719489/Car6_swacgb.jpg",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719489/Car6_swacgb.jpg",
     year: 2019,
     category: "SUV",
     seating_capacity: 5,
@@ -249,12 +275,14 @@ export const dummyCarData = [
     description: "Strong SUV with excellent driving dynamics.",
     isAvailable: true,
     createdAt: "2026-03-19",
+     feature:false
   },
   {
     _id: "c16",
     owner: "own_16",
     brand: "Volkswagen",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719489/Car7_c3xzhm.jpg",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719489/Car7_c3xzhm.jpg",
     year: 2021,
     category: "Sedan",
     seating_capacity: 5,
@@ -264,12 +292,14 @@ export const dummyCarData = [
     description: "Premium sedan with smooth handling and performance.",
     isAvailable: true,
     createdAt: "2026-03-20",
+     feature:false
   },
   {
     _id: "c17",
     owner: "own_17",
     brand: "Skoda",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719490/Car8_q5afha.jpg",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719490/Car8_q5afha.jpg",
     year: 2022,
     category: "Sedan",
     seating_capacity: 5,
@@ -279,12 +309,14 @@ export const dummyCarData = [
     description: "Elegant sedan with great comfort and efficiency.",
     isAvailable: true,
     createdAt: "2026-03-21",
+     feature:false
   },
   {
     _id: "c18",
     owner: "own_18",
     brand: "Renault",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719490/Car9_rwopfr.jpg",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719490/Car9_rwopfr.jpg",
     year: 2020,
     category: "SUV",
     seating_capacity: 5,
@@ -294,12 +326,14 @@ export const dummyCarData = [
     description: "Compact SUV ideal for city and highway drives.",
     isAvailable: true,
     createdAt: "2026-03-22",
+     feature:false
   },
   {
     _id: "c19",
     owner: "own_19",
     brand: "Nissan",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719489/Car1_y2mrzi.jpg",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719489/Car1_y2mrzi.jpg",
     year: 2021,
     category: "SUV",
     seating_capacity: 5,
@@ -309,12 +343,14 @@ export const dummyCarData = [
     description: "Modern SUV with stylish design and smooth performance.",
     isAvailable: true,
     createdAt: "2026-03-23",
+     feature:false
   },
   {
     _id: "c20",
     owner: "own_20",
     brand: "BMW",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719488/Car2_kddiij.webp",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719488/Car2_kddiij.webp",
     year: 2023,
     category: "Luxury",
     seating_capacity: 5,
@@ -324,12 +360,14 @@ export const dummyCarData = [
     description: "Luxury sedan with high performance and premium comfort.",
     isAvailable: true,
     createdAt: "2026-03-24",
+     feature:false
   },
   {
     _id: "c21",
     owner: "own_21",
     brand: "Audi",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719489/Car3_iwyq82.jpg",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719489/Car3_iwyq82.jpg",
     year: 2022,
     category: "Luxury",
     seating_capacity: 5,
@@ -339,12 +377,14 @@ export const dummyCarData = [
     description: "Premium car with advanced tech and smooth ride.",
     isAvailable: true,
     createdAt: "2026-03-25",
+     feature:false
   },
   {
     _id: "c22",
     owner: "own_22",
     brand: "Mercedes",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719488/Car4_ij6fp9.jpg",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719488/Car4_ij6fp9.jpg",
     year: 2023,
     category: "Luxury",
     seating_capacity: 5,
@@ -354,12 +394,14 @@ export const dummyCarData = [
     description: "Top-class luxury with exceptional comfort.",
     isAvailable: true,
     createdAt: "2026-03-26",
+     feature:false
   },
   {
     _id: "c23",
     owner: "own_23",
     brand: "Honda",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719489/Car5_mbh031.jpg",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719489/Car5_mbh031.jpg",
     year: 2020,
     category: "Sedan",
     seating_capacity: 5,
@@ -369,12 +411,14 @@ export const dummyCarData = [
     description: "Reliable sedan with great fuel efficiency.",
     isAvailable: true,
     createdAt: "2026-03-27",
+     feature:false
   },
   {
     _id: "c24",
     owner: "own_24",
     brand: "Hyundai",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719489/Car6_swacgb.jpg",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719489/Car6_swacgb.jpg",
     year: 2021,
     category: "Hatchback",
     seating_capacity: 5,
@@ -384,12 +428,14 @@ export const dummyCarData = [
     description: "Compact hatchback perfect for city rides.",
     isAvailable: true,
     createdAt: "2026-03-28",
+     feature:false
   },
   {
     _id: "c25",
     owner: "own_25",
     brand: "Toyota",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719489/Car7_c3xzhm.jpg",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719489/Car7_c3xzhm.jpg",
     year: 2022,
     category: "SUV",
     seating_capacity: 7,
@@ -399,12 +445,14 @@ export const dummyCarData = [
     description: "Spacious SUV ideal for family trips.",
     isAvailable: true,
     createdAt: "2026-03-29",
+     feature:false
   },
   {
     _id: "c26",
     owner: "own_26",
     brand: "Tata",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719490/Car8_q5afha.jpg",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719490/Car8_q5afha.jpg",
     year: 2023,
     category: "EV",
     seating_capacity: 5,
@@ -414,12 +462,14 @@ export const dummyCarData = [
     description: "Eco-friendly electric car with modern design.",
     isAvailable: true,
     createdAt: "2026-03-30",
+     feature:false
   },
   {
     _id: "c27",
     owner: "own_27",
     brand: "Mahindra",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719490/Car9_rwopfr.jpg",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719490/Car9_rwopfr.jpg",
     year: 2022,
     category: "SUV",
     seating_capacity: 7,
@@ -429,12 +479,14 @@ export const dummyCarData = [
     description: "Rugged SUV with strong road presence.",
     isAvailable: true,
     createdAt: "2026-03-31",
+     feature:false
   },
   {
     _id: "c28",
     owner: "own_28",
     brand: "Kia",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719489/Car1_y2mrzi.jpg",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719489/Car1_y2mrzi.jpg",
     year: 2023,
     category: "SUV",
     seating_capacity: 5,
@@ -444,12 +496,14 @@ export const dummyCarData = [
     description: "Modern SUV with stylish exterior.",
     isAvailable: true,
     createdAt: "2026-04-01",
+     feature:false
   },
   {
     _id: "c29",
     owner: "own_29",
     brand: "Ford",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719488/Car2_kddiij.webp",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719488/Car2_kddiij.webp",
     year: 2020,
     category: "SUV",
     seating_capacity: 5,
@@ -459,12 +513,14 @@ export const dummyCarData = [
     description: "Strong build and excellent performance.",
     isAvailable: true,
     createdAt: "2026-04-02",
+     feature:false
   },
   {
     _id: "c30",
     owner: "own_30",
     brand: "Volkswagen",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719489/Car3_iwyq82.jpg",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719489/Car3_iwyq82.jpg",
     year: 2021,
     category: "Sedan",
     seating_capacity: 5,
@@ -474,12 +530,14 @@ export const dummyCarData = [
     description: "Smooth driving with premium interior.",
     isAvailable: true,
     createdAt: "2026-04-03",
+     feature:false
   },
   {
     _id: "c31",
     owner: "own_31",
     brand: "Skoda",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719488/Car4_ij6fp9.jpg",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719488/Car4_ij6fp9.jpg",
     year: 2022,
     category: "Sedan",
     seating_capacity: 5,
@@ -489,12 +547,14 @@ export const dummyCarData = [
     description: "Comfortable sedan with stylish design.",
     isAvailable: true,
     createdAt: "2026-04-04",
+     feature:false
   },
   {
     _id: "c32",
     owner: "own_32",
     brand: "Renault",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719489/Car5_mbh031.jpg",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719489/Car5_mbh031.jpg",
     year: 2021,
     category: "SUV",
     seating_capacity: 5,
@@ -504,12 +564,14 @@ export const dummyCarData = [
     description: "Compact SUV suitable for urban drives.",
     isAvailable: true,
     createdAt: "2026-04-05",
+     feature:false
   },
   {
     _id: "c33",
     owner: "own_33",
     brand: "Nissan",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719489/Car6_swacgb.jpg",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719489/Car6_swacgb.jpg",
     year: 2022,
     category: "SUV",
     seating_capacity: 5,
@@ -519,12 +581,14 @@ export const dummyCarData = [
     description: "Stylish SUV with comfortable interiors.",
     isAvailable: true,
     createdAt: "2026-04-06",
+     feature:false
   },
   {
     _id: "c34",
     owner: "own_34",
     brand: "MG",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719489/Car7_c3xzhm.jpg",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719489/Car7_c3xzhm.jpg",
     year: 2023,
     category: "EV",
     seating_capacity: 5,
@@ -534,12 +598,14 @@ export const dummyCarData = [
     description: "Electric SUV with smart features.",
     isAvailable: true,
     createdAt: "2026-04-07",
+     feature:false
   },
   {
     _id: "c35",
     owner: "own_35",
     brand: "Jeep",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719490/Car8_q5afha.jpg",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719490/Car8_q5afha.jpg",
     year: 2021,
     category: "SUV",
     seating_capacity: 5,
@@ -549,12 +615,14 @@ export const dummyCarData = [
     description: "Off-road SUV with powerful engine.",
     isAvailable: true,
     createdAt: "2026-04-08",
+     feature:false
   },
   {
     _id: "c36",
     owner: "own_36",
     brand: "Maruti",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719490/Car9_rwopfr.jpg",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719490/Car9_rwopfr.jpg",
     year: 2020,
     category: "Hatchback",
     seating_capacity: 5,
@@ -564,12 +632,14 @@ export const dummyCarData = [
     description: "Budget-friendly car with good mileage.",
     isAvailable: true,
     createdAt: "2026-04-09",
+     feature:false
   },
   {
     _id: "c37",
     owner: "own_37",
     brand: "Maruti",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719489/Car1_y2mrzi.jpg",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719489/Car1_y2mrzi.jpg",
     year: 2022,
     category: "Sedan",
     seating_capacity: 5,
@@ -579,12 +649,14 @@ export const dummyCarData = [
     description: "Fuel-efficient sedan with low running cost.",
     isAvailable: true,
     createdAt: "2026-04-10",
+     feature:false
   },
   {
     _id: "c38",
     owner: "own_38",
     brand: "Hyundai",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719488/Car2_kddiij.webp",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719488/Car2_kddiij.webp",
     year: 2023,
     category: "EV",
     seating_capacity: 5,
@@ -594,12 +666,14 @@ export const dummyCarData = [
     description: "Modern electric car with long range.",
     isAvailable: true,
     createdAt: "2026-04-11",
+     feature:false
   },
   {
     _id: "c39",
     owner: "own_39",
     brand: "Toyota",
-    image: "https://res.cloudinary.com/dhbpysn7d/image/upload/v1775719489/Car3_iwyq82.jpg",
+    image:
+      "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_1/v1775719489/Car3_iwyq82.jpg",
     year: 2021,
     category: "Hybrid",
     seating_capacity: 5,
@@ -609,6 +683,7 @@ export const dummyCarData = [
     description: "Hybrid car with excellent fuel efficiency.",
     isAvailable: true,
     createdAt: "2026-04-12",
+     feature:false
   },
 ];
 
@@ -619,14 +694,14 @@ export const testimonials = [
     rating: 5,
     comment:
       "I've rented cars from many companies, but my experience was exceptional!",
-    img: "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_auto,w_400,h_400,c_fill/v1775719490/Customer1_i2yo4i.jpg",
+    img: "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_50,w_400,h_400,c_fill/v1775719490/Customer1_i2yo4i.jpg",
   },
   {
     _id: "t2",
     name: "Aman",
     rating: 4,
     comment: "Very smooth booking process and the car condition was excellent.",
-    img: "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_auto,w_400,h_400,c_fill/v1775719491/Customer2_monplo.jpg",
+    img: "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_50,w_400,h_400,c_fill/v1775719491/Customer2_monplo.jpg",
   },
   {
     _id: "t3",
@@ -634,14 +709,14 @@ export const testimonials = [
     rating: 5,
     comment:
       "Affordable prices and great customer support. Highly recommended!",
-    img: "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_auto,w_400,h_400,c_fill/v1775719491/Customer3_ut84z6.jpg",
+    img: "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_50,w_400,h_400,c_fill/v1775719491/Customer3_ut84z6.jpg",
   },
   {
     _id: "t4",
     name: "David",
     rating: 4,
     comment: "Loved the variety of cars available. Will definitely book again.",
-    img: "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_auto,w_400,h_400,c_fill/v1775719491/Customer4_t1yrst.jpg",
+    img: "https://res.cloudinary.com/dhbpysn7d/image/upload/f_auto,q_50,w_400,h_400,c_fill/v1775719491/Customer4_t1yrst.jpg",
   },
 ];
 
@@ -708,8 +783,9 @@ export const dummyDashboardData = {
   totalBookings: dummyMyBooking.length,
   pendingBookings: dummyMyBooking.filter((data) => data.status === "pending")
     .length,
-  confirmedBookings: dummyMyBooking.filter((data) => data.status === "confirmed")
-    .length,
-  recentBookings: [dummyMyBooking[0],dummyMyBooking[1]],
+  confirmedBookings: dummyMyBooking.filter(
+    (data) => data.status === "confirmed",
+  ).length,
+  recentBookings: [dummyMyBooking[0], dummyMyBooking[1]],
   monthlyRevenue: 15000,
 };
