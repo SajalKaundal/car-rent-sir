@@ -1,18 +1,25 @@
 import { useEffect, useState } from "react";
 import { dummyCarData } from "../../assets/assests";
 import { useNavigate } from "react-router";
+import { fetchCars } from "../../services/carServices";
 
 function ManageCars() {
-    const API_URL = import.meta.env.VITE_API_URL
+  const API_URL = import.meta.env.VITE_API_URL;
   const [cars, setCars] = useState([]);
   const [carNumber, setCarNumber] = useState(4);
   const navigate = useNavigate();
   useEffect(() => {
-    const fetchCar = async () =>{
-      try{
-        const response = await fetch(`${API_URL}/`)
+    const getCars = async () => {
+      try {
+        const data = await fetchCars({
+          limit:9
+        });
+        setCars(data.cars);
+      } catch (err) {
+        console.log(err.message);
       }
-    }
+    };
+    getCars();
   }, []);
 
   return (

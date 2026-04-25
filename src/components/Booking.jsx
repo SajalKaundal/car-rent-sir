@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
+import { fetchCar } from "../services/carServices";
 export default function Booking({ booking, index }) {
-  const API_URL = import.meta.env.VITE_API_URL;
   const [car, setCar] = useState({
     _id: "",
     owner: "",
@@ -18,18 +18,19 @@ export default function Booking({ booking, index }) {
     featured: null,
   });
   useEffect(() => {
-    const fetchCar = async () => {
-      try {
-        const response = await fetch(`${API_URL}/?_id=${booking.car}`);
-        const car = await response.json();
-        setCar(car.cars[0]);
-      } catch (err) {
-        console.error(err.message);
+    const getCar = async()=>{
+      try{
+        const data = await fetchCar({
+          _id:booking.car
+        })
+        setCar(data)
+      }catch(err){
+        console.log(err.message)
       }
-    };
-    fetchCar();
+    }
+    getCar()
     // console.log(car);
-  }, [API_URL, booking.car]);
+  }, [booking.car]);
   return (
     <div className="row">
       <div className="col-lg-4 col-md-10 col-12 mb-4">

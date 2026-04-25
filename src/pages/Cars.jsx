@@ -5,9 +5,8 @@ import Title from "../components/Title";
 // import { useMemo } from "react";
 import useDebounce from "../utils/useDebounce";
 import Pagination from "../components/Pagination";
-
+import { fetchCars, fetchSearchCar } from "../services/carServices";
 const Cars = () => {
-  const API_URL = import.meta.env.VITE_API_URL;
   const [searchCar, setSearchCar] = useState("");
   const [carsLoaded, setCarsLoaded] = useState(9);
   const debounceSearch = useDebounce(searchCar, 700);
@@ -21,39 +20,34 @@ const Cars = () => {
 
   useEffect(() => {
     const controller = new AbortController();
-    const fetchSearchData = async () => {
+    const getCars = async () => {
       try {
-        const response = await fetch(
-          `${API_URL}/?page=${page}&limit=${carsLoaded}&search=${debounceSearch}`,
-          { signal: controller.signal },
-        );
-        const data = await response.json();
-        setData(data);
+        let result;
+        if (debounceSearch) {
+          result = await fetchSearchCar({
+            page,
+            limit: carsLoaded,
+            search: debounceSearch,
+            signal: controller.signal,
+          });
+        } else {
+          result = await fetchCars({
+            page,
+            limit: carsLoaded,
+          });
+        }
+        setData(result);
       } catch (err) {
         console.error(err.message);
       }
     };
-    const fetchdata = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:5000/?page=${page}&limit=${carsLoaded}`,
-          { signal: controller.signal },
-        );
-        const data = await response.json();
-        setData(data);
-      } catch (err) {
-        console.error(err.message);
-      }
-    };
+    getCars();
 
-    if (debounceSearch) {
-      setPage(1);
-      fetchSearchData();
-    } else {
-      fetchdata();
-    }
     return () => controller.abort();
-  }, [debounceSearch, carsLoaded, page, API_URL]);
+  }, [debounceSearch, carsLoaded, page]);
+  useEffect(() => {
+    setPage(1);
+  }, [debounceSearch]);
   // const filteredCars = useMemo(() => {
   //   const query = debounceSearch.toLowerCase();
 

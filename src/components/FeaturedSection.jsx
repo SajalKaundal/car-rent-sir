@@ -1,22 +1,29 @@
 import Title from "./Title";
-import { dummyCarData } from "../assets/assests";
+// import { dummyCarData } from "../assets/assests";
 import CarCard from "./CarCard";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
+import { fetchCars } from "../services/carServices";
 // import { useState } from "react";
 const FeaturedSection = () => {
-  const API_URL = import.meta.env.VITE_API_URL
   const navigate = useNavigate();
   // const [visibleCars, setVisibleCars] = useState(3);
   const [featuredCars, setFeaturedCars] = useState([]);
 
   useEffect(() => {
-    fetch(`${API_URL}/?featured=true`)
-      .then((res) => res.json())
-      .then((data) => {
+    const getCars = async ()=>{
+      try{
+        const data = await fetchCars({
+          limit:3,
+          featured:true
+        })
         setFeaturedCars(data.cars)
-      }).catch((err)=> console.error(err));
-  }, [API_URL]);
+      }catch(err){
+        console.error(err.message)
+      }
+    }
+    getCars()
+  }, []);
   return (
     <div className="container mt-5">
       <div>
