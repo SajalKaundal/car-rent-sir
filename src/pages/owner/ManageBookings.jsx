@@ -1,14 +1,25 @@
 import { useEffect, useState } from "react";
 import { dummyMyBooking } from "../../assets/assests";
 function ManageBookings() {
+  const API_URL = import.meta.env.VITE_API_URL;
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
-    setBookings(
-      dummyMyBooking
-    );
-  }, []);
-  console.log(dummyMyBooking)
+    const fetchBookings = async () => {
+      try {
+        const response = await fetch(`${API_URL}/bookings/`);
+        const data = await response.json();
+        setBookings(data.bookings);
+      } catch (err) {
+        console.error(err.message);
+      }
+    };
+    fetchBookings();
+    // setBookings(
+    //   dummyMyBooking
+    // );
+  }, [API_URL]);
+  console.log(dummyMyBooking);
   return (
     <div>
       <h5 className="fw-bold mb-3">Manage Bookings</h5>
@@ -47,10 +58,18 @@ function ManageBookings() {
                 </td>
 
                 <td>
-                  <button disabled={b.status==="confirmed"||b.status==="cancelled"} className="btn btn-sm btn-success me-2">
+                  <button
+                    disabled={
+                      b.status === "confirmed" || b.status === "cancelled"
+                    }
+                    className="btn btn-sm btn-success me-2"
+                  >
                     Approve
                   </button>
-                  <button disabled={b.status==="cancelled"} className="btn btn-sm btn-danger">
+                  <button
+                    disabled={b.status === "cancelled"}
+                    className="btn btn-sm btn-danger"
+                  >
                     Cancel
                   </button>
                 </td>

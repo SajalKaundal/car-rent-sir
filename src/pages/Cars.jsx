@@ -4,8 +4,10 @@ import CarCard from "../components/CarCard";
 import Title from "../components/Title";
 // import { useMemo } from "react";
 import useDebounce from "../utils/useDebounce";
+import Pagination from "../components/Pagination";
 
 const Cars = () => {
+  const API_URL = import.meta.env.VITE_API_URL;
   const [searchCar, setSearchCar] = useState("");
   const [carsLoaded, setCarsLoaded] = useState(9);
   const debounceSearch = useDebounce(searchCar, 700);
@@ -22,7 +24,7 @@ const Cars = () => {
     const fetchSearchData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/?page=${page}&limit=${carsLoaded}&search=${debounceSearch}`,
+          `${API_URL}/?page=${page}&limit=${carsLoaded}&search=${debounceSearch}`,
           { signal: controller.signal },
         );
         const data = await response.json();
@@ -51,7 +53,7 @@ const Cars = () => {
       fetchdata();
     }
     return () => controller.abort();
-  }, [debounceSearch, carsLoaded, page]);
+  }, [debounceSearch, carsLoaded, page, API_URL]);
   // const filteredCars = useMemo(() => {
   //   const query = debounceSearch.toLowerCase();
 
@@ -125,30 +127,12 @@ const Cars = () => {
         </button>
       </div> */}
       {data.totalPages > 1 && (
-        <nav aria-label="Page navigation example">
-          <ul className="pagination justify-content-center mt-5">
-            <li
-              className={`page-item ${page === 1 && "disabled"}`}
-              onClick={() => setPage((prev) => prev - 1)}
-            >
-              <a className="page-link" href="#" tabIndex="-1">
-                Previous
-              </a>
-            </li>
-            {pages.map((p) => p)}
-
-            <li
-              className={`page-item ${page === data.totalPages && "disabled"}`}
-            >
-              <a
-                className="page-link"
-                onClick={() => setPage((prev) => prev + 1)}
-              >
-                Next
-              </a>
-            </li>
-          </ul>
-        </nav>
+        <Pagination
+          page={page}
+          setPage={setPage}
+          pages={pages}
+          totalPages={data.totalPages}
+        />
       )}
     </div>
   );

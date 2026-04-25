@@ -5,16 +5,18 @@ import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 // import { useState } from "react";
 const FeaturedSection = () => {
+  const API_URL = import.meta.env.VITE_API_URL
   const navigate = useNavigate();
   // const [visibleCars, setVisibleCars] = useState(3);
   const [featuredCars, setFeaturedCars] = useState([]);
+
   useEffect(() => {
-    fetch("http://localhost:5000/?featured=true")
+    fetch(`${API_URL}/?featured=true`)
       .then((res) => res.json())
       .then((data) => {
         setFeaturedCars(data.cars)
       }).catch((err)=> console.error(err));
-  }, []);
+  }, [API_URL]);
   return (
     <div className="container mt-5">
       <div>
