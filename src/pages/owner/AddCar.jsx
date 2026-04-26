@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { addCar } from "../../services/carServices";
 const AddCar = () => {
   const [carData, setCarData] = useState({
     brand: "",
@@ -11,12 +11,14 @@ const AddCar = () => {
     pricePerDay: "",
     description: "",
     image: null,
+    featured: false,
   });
 
   const [preview, setPreview] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    // console.log(name, value);
     setCarData({ ...carData, [name]: value });
   };
 
@@ -29,23 +31,37 @@ const AddCar = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(carData);
-    alert("Car added successfully!");
+
+    try {
+      const result = await addCar(carData);
+
+      if (!result.success) {
+        throw new Error(result.message);
+      }
+
+      alert("Car added successfully!");
+
+      // optional: reset form
+      // setCarData(initialState);
+    } catch (error) {
+      console.error("Error adding car:", error);
+      alert(error.message || "Failed to add car. Please try again.");
+    }
+  };
+
+  const handleChecked = (e) => {
+    const { name, checked } = e.target;
+    setCarData({ ...carData, [name]: checked });
   };
 
   return (
     <div className="container mt-5">
-      
       <div className="card shadow-lg p-4 border-0 rounded-4">
-        
-        <h2 className="text-center mb-4 fw-bold">
-           Sell Your Car
-        </h2>
+        <h2 className="text-center mb-4 fw-bold">Sell Your Car</h2>
 
         <form onSubmit={handleSubmit} className="row g-4">
-
           {/* Brand */}
           <div className="col-md-6">
             <label className="form-label fw-semibold">Brand</label>
@@ -167,6 +183,20 @@ const AddCar = () => {
               />
             </div>
           )}
+          {/* Featured */}
+          <div className="col-6">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                name="featured"
+                onChange={handleChecked}
+              />
+              <label class="form-check-label fw-semibold" for="">
+                Featured
+              </label>
+            </div>
+          </div>
 
           {/* Description */}
           <div className="col-12">
@@ -187,10 +217,9 @@ const AddCar = () => {
               type="submit"
               className="btn btn-dark w-100 py-2 fw-semibold"
             >
-              🚀 Add Car
+              Add Car
             </button>
           </div>
-
         </form>
       </div>
     </div>

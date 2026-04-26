@@ -10,8 +10,7 @@ const MyBookings = () => {
   useEffect(() => {
    const getBookings = async ()=>{
     const data = await fetchBookings('70user001')
-    console.log(data)
-    setBookings(data)
+    setBookings(data || [])
    }
    getBookings()
   }, []);
