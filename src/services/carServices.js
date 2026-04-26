@@ -26,15 +26,15 @@ const fetchCars = async ({ page = 1, limit = 3, featured = false }) => {
   }
 };
 
-const fetchCar = async ({ _id = null }) => {
+const fetchCar = async ( _id = null ) => {
   if (!_id) {
     console.log("_id is required");
     return "";
   }
   try {
-    const response = await fetch(`${API_URL}/?_id=${_id}`);
-    const data = await response.json();
-    return data.cars[0];
+    const response = await fetch(`${API_URL}/${_id}`);
+    const car = await response.json();
+    return car;
   } catch (err) {
     console.error(err.message);
   }

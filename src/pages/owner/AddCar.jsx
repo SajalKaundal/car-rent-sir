@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { addCar } from "../../services/carServices";
 const AddCar = () => {
-  const [carData, setCarData] = useState({
+  const initialState = {
     brand: "",
     year: "",
     category: "",
@@ -12,6 +12,9 @@ const AddCar = () => {
     description: "",
     image: null,
     featured: false,
+  };
+  const [carData, setCarData] = useState({
+    initialState,
   });
 
   const [preview, setPreview] = useState(null);
@@ -44,7 +47,7 @@ const AddCar = () => {
       alert("Car added successfully!");
 
       // optional: reset form
-      // setCarData(initialState);
+      setCarData(initialState);
     } catch (error) {
       console.error("Error adding car:", error);
       alert(error.message || "Failed to add car. Please try again.");

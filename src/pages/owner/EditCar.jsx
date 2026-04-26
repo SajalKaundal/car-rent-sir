@@ -225,7 +225,7 @@ function EditCar() {
         </form>
       </div>
 
-      {/* 🔥 PREVIEW MODAL */}
+      {/* PREVIEW MODAL */}
       {showPreview && (
         <div
           className="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"

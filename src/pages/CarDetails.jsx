@@ -7,11 +7,13 @@ import { IoPerson } from "react-icons/io5";
 import { BsFillFuelPumpFill } from "react-icons/bs";
 import { FaGear } from "react-icons/fa6";
 import "./CarDetails.css";
+import { fetchCar } from "../services/carServices";
+import { cartoonify } from "@cloudinary/url-gen/actions/effect";
 
 const CarDetails = () => {
-  const API_URL = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
   const { id } = useParams();
+  
   // const car = dummyCarData.find((car) => car._id === id);
   const [car, setCar] = useState({
     _id: "",
@@ -33,16 +35,15 @@ const CarDetails = () => {
   useEffect(() => {
     const fetchCarDetails = async () => {
       try {
-        const response = await fetch(`${API_URL}/?_id=${id}`);
-        const data = await response.json();
-        const car = data.cars[0];
+        const car = await fetchCar(id);
         setCar(car);
+        console.log(car)
       } catch (err) {
         console.log(err.message);
       }
     };
     fetchCarDetails();
-  }, [id,API_URL]);
+  }, [id]);
   return (
     // <div className="row m-5">
     //   <div className="mb-2">
