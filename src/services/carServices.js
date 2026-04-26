@@ -93,4 +93,50 @@ const addCar = async (carData) => {
   }
 };
 
-export { fetchSearchCar, fetchCars, fetchCar, addCar };
+const updateCar = async (id, carData) => {
+  try {
+    const formData = new FormData();
+
+    Object.keys(carData).forEach((key) => {
+      if (key === "image") {
+        if (carData.image instanceof File) {
+          formData.append("image", carData.image);
+        }
+      } else {
+        formData.append(key, carData[key]);
+      }
+    });
+
+    const res = await fetch(`${API_URL}/${id}`, {
+      method: "PATCH",
+      body: formData, 
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.message);
+    }
+
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const deleteCar = async (id) =>{
+  try{
+    const res = await fetch(`${API_URL}/${id}`,{
+      method:"DELETE"
+    })
+    const data = await res.json()
+    if(!res.ok){
+      throw new Error(data.message)
+    }
+    return data;
+
+  }catch(err){
+    console.error(err.message)
+  }
+}
+export { fetchSearchCar, fetchCars, fetchCar, addCar,updateCar, deleteCar };

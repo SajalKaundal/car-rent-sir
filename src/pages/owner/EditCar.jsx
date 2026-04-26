@@ -1,13 +1,25 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { dummyCarData } from "../../assets/assests";
+// import { dummyCarData } from "../../assets/assests";
+import { fetchCar, updateCar } from "../../services/carServices";
 
 function EditCar() {
   const { id } = useParams();
   const navigate = useNavigate();
 
   const [showPreview, setShowPreview] = useState(false);
-
+  const [originalCar, setOriginalCar] = useState({
+    brand: "",
+    year: "",
+    category: "",
+    seating_capacity: "",
+    fuel_type: "",
+    transmission: "",
+    pricePerDay: "",
+    description: "",
+    image: "",
+    isAvailable: true,
+  });
   const [carData, setCarData] = useState({
     brand: "",
     year: "",
@@ -20,16 +32,41 @@ function EditCar() {
     image: "",
     isAvailable: true,
   });
-
-  // ✅ Load existing car data
+  const [preview, setPreview] = useState("");
+  //  Load existing car data
   useEffect(() => {
-    const car = dummyCarData.find((c) => c._id === id);
-    if (car) {
-      setCarData(car);
-    }
+    const getCar = async () => {
+      try {
+        const car = await fetchCar(id);
+        setCarData(car);
+        setOriginalCar(car);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getCar();
   }, [id]);
 
-  // ✅ Handle input change
+  const checkUpdate = () => {
+    const updateData = {};
+
+    Object.keys(carData).forEach((key) => {
+      //image case
+      if (key === "image") {
+        if (carData.image instanceof File) {
+          updateData.image = carData.image;
+        }
+      }
+      //normal fields
+      else if (carData[key] !== originalCar[key]) {
+        updateData[key] = carData[key];
+      }
+    });
+
+    return updateData;
+  };
+
+  //  Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCarData((prev) => ({
@@ -38,35 +75,49 @@ function EditCar() {
     }));
   };
 
-  // ✅ Handle image change
+  //  Handle image change
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setCarData((prev) => ({
         ...prev,
-        image: URL.createObjectURL(file),
+        image: file,
       }));
+      setPreview(URL.createObjectURL(file));
     }
   };
 
-  // ✅ Submit
-  const handleSubmit = (e) => {
+  // Submit
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Updated Car:", carData);
-
-    alert("Car updated successfully!");
-    navigate("/dashboard/manage-cars");
+    // console.log("Updated Car:", carData);
+    try {
+      const updatedCar = checkUpdate();
+      const result = await updateCar(id, updatedCar);
+      if (!result.success) {
+        throw new Error(result.message);
+      }
+      alert("Car Updated Successfully!");
+      setCarData(result.data);
+    } catch (err) {
+      console.error(err);
+    }
+    // navigate("/dashboard/manage-cars");
   };
 
   return (
     <div className="container mt-4">
-      <button className="btn btn-outline-dark" onClick={()=>navigate('/owner/dashboard/manage-cars')}>Back</button>
+      <button
+        className="btn btn-outline-dark"
+        onClick={() => navigate("/owner/dashboard/manage-cars")}
+      >
+        Back
+      </button>
       <div className="card shadow-sm border-0 rounded-4 p-4">
         <h5 className="fw-bold mb-4">Edit Car</h5>
 
         <form onSubmit={handleSubmit}>
           <div className="row g-3">
-
             {/* BRAND */}
             <div className="col-md-6">
               <label className="form-label">Brand</label>
@@ -165,7 +216,10 @@ function EditCar() {
             {carData.image && (
               <div className="col-12">
                 <img
-                  src={carData.image}
+                  src={
+                    preview ||
+                    (typeof carData.image === "string" ? carData.image : "")
+                  }
                   alt="preview"
                   className="img-fluid rounded"
                   style={{ maxHeight: "200px", objectFit: "cover" }}
@@ -198,9 +252,7 @@ function EditCar() {
                   }))
                 }
               />
-              <label className="form-check-label">
-                Available for booking
-              </label>
+              <label className="form-check-label">Available for booking</label>
             </div>
 
             {/* PREVIEW BUTTON */}
@@ -220,7 +272,6 @@ function EditCar() {
                 Update Car
               </button>
             </div>
-
           </div>
         </form>
       </div>
@@ -231,10 +282,15 @@ function EditCar() {
           className="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
           style={{ background: "rgba(0,0,0,0.5)", zIndex: 1050 }}
         >
-          <div className="bg-white rounded-4 p-4 shadow-lg" style={{ width: "400px" }}>
-
+          <div
+            className="bg-white rounded-4 p-4 shadow-lg"
+            style={{ width: "400px" }}
+          >
             <img
-              src={carData.image}
+              src={
+                preview ||
+                (typeof carData.image === "string" ? carData.image : "")
+              }
               alt="car"
               className="img-fluid rounded mb-3"
               style={{ height: "180px", objectFit: "cover", width: "100%" }}
@@ -246,13 +302,9 @@ function EditCar() {
               {carData.category} • {carData.fuel_type} • {carData.transmission}
             </p>
 
-            <p className="fw-semibold">
-              ₹ {carData.pricePerDay} / day
-            </p>
+            <p className="fw-semibold">₹ {carData.pricePerDay} / day</p>
 
-            <p className="small text-muted">
-              {carData.description}
-            </p>
+            <p className="small text-muted">{carData.description}</p>
 
             <span
               className={`badge ${
@@ -273,7 +325,6 @@ function EditCar() {
           </div>
         </div>
       )}
-
     </div>
   );
 }

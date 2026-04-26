@@ -1,18 +1,31 @@
 import { useEffect, useState } from "react";
-import { dummyCarData } from "../../assets/assests";
+// import { dummyCarData } from "../../assets/assests";
 import { useNavigate } from "react-router";
-import { fetchCars } from "../../services/carServices";
+import { fetchCars, deleteCar } from "../../services/carServices";
 
 function ManageCars() {
-  const API_URL = import.meta.env.VITE_API_URL;
   const [cars, setCars] = useState([]);
-  const [carNumber, setCarNumber] = useState(4);
+  const [carNumber, setCarNumber] = useState(100);
   const navigate = useNavigate();
+
+  const onDelete = async (id) => {
+    try {
+      const result = await deleteCar(id);
+      if (!result.success) {
+        throw new Error(result.message)
+      }
+      alert("Car deleted Successfully")
+      setCars((prev)=> prev.filter((car)=> car._id !==  id))
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
   useEffect(() => {
     const getCars = async () => {
       try {
         const data = await fetchCars({
-          limit:9
+          limit: 100,
         });
         setCars(data.cars);
       } catch (err) {
@@ -79,7 +92,10 @@ function ManageCars() {
                   >
                     Edit
                   </button>
-                  <button className="btn btn-outline-danger w-100 rounded-pill">
+                  <button
+                    className="btn btn-outline-danger w-100 rounded-pill"
+                    onClick={() => onDelete(car._id)}
+                  >
                     Delete
                   </button>
                 </div>
