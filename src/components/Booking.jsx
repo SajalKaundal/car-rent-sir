@@ -1,45 +1,14 @@
-import { useEffect, useState } from "react";
-import { fetchCar } from "../services/carServices";
+
 export default function Booking({ booking, index }) {
-  const [car, setCar] = useState({
-    _id: "",
-    owner: "",
-    brand: "",
-    image: "",
-    year: "",
-    category: "",
-    seating_capacity: "",
-    fuel_type: "",
-    transmission: "",
-    pricePerDay: "",
-    description: "",
-    isAvailable: null,
-    createdAt: null,
-    featured: null,
-  });
-  useEffect(() => {
-    const getCar = async()=>{
-      try{
-        const data = await fetchCar({
-          _id:booking.car
-        })
-        setCar(data)
-      }catch(err){
-        console.log(err.message)
-      }
-    }
-    getCar()
-    // console.log(car);
-  }, [booking.car]);
   return (
     <div className="row">
       <div className="col-lg-4 col-md-10 col-12 mb-4">
         <div className="card shadow-sm h-100 align-middle justify-content-center">
           {/* Car Image */}
           <img
-            src={car.image}
+            src={booking.car.image}
             className="card-img-top"
-            alt={car.name}
+            alt={booking.car.name}
             // style={{ height: "200px", objectFit: "cover" }}
           />
         </div>
@@ -49,28 +18,28 @@ export default function Booking({ booking, index }) {
           <h5 className="fw-bold mb-3">{`# ${index}`}</h5>
 
           {/* Car Name */}
-          <h5 className="fw-bold mb-3">{car.name}</h5>
+          <h5 className="fw-bold mb-3">{booking.car.name}</h5>
 
           {/* Car Details */}
           <div className="row text-muted mb-3">
             <div className="col-6 col-md-3 mb-2">
               <small>Brand</small>
-              <div className="fw-semibold">{car.brand}</div>
+              <div className="fw-semibold">{booking.car.brand}</div>
             </div>
 
             <div className="col-6 col-md-3 mb-2">
               <small>Category</small>
-              <div className="fw-semibold">{car.category}</div>
+              <div className="fw-semibold">{booking.car.category}</div>
             </div>
 
             <div className="col-6 col-md-3 mb-2">
               <small>Seats</small>
-              <div className="fw-semibold">{car.seating_capacity}</div>
+              <div className="fw-semibold">{booking.car.seating_capacity}</div>
             </div>
 
             <div className="col-6 col-md-3 mb-2">
               <small>Transmission</small>
-              <div className="fw-semibold">{car.transmission}</div>
+              <div className="fw-semibold">{booking.car.transmission}</div>
             </div>
           </div>
 

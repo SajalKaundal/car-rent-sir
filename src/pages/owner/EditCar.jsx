@@ -17,7 +17,7 @@ function EditCar() {
     transmission: "",
     pricePerDay: "",
     description: "",
-    image: "",
+    image: null,
     isAvailable: true,
   });
   const [carData, setCarData] = useState({

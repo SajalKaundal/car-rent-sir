@@ -188,14 +188,14 @@ const AddCar = () => {
           )}
           {/* Featured */}
           <div className="col-6">
-            <div class="form-check">
+            <div className="form-check">
               <input
-                class="form-check-input"
+                className="form-check-input"
                 type="checkbox"
                 name="featured"
                 onChange={handleChecked}
               />
-              <label class="form-check-label fw-semibold" for="">
+              <label className="form-check-label fw-semibold" htmlFor="">
                 Featured
               </label>
             </div>

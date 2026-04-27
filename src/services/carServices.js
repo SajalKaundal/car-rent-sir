@@ -4,7 +4,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 const fetchSearchCar = async ({ page = 1, limit = 9, search = "", signal }) => {
   try {
     const response = await fetch(
-      `${API_URL}/?page=${page}&limit=${limit}&search=${search}`,
+      `${API_URL}/car/?page=${page}&limit=${limit}&search=${search}`,
       { signal },
     );
     const data = await response.json();
@@ -17,7 +17,7 @@ const fetchSearchCar = async ({ page = 1, limit = 9, search = "", signal }) => {
 const fetchCars = async ({ page = 1, limit = 3, featured = false }) => {
   try {
     const response = await fetch(
-      `${API_URL}/?page=${page}&limit=${limit}&featured=${featured}`,
+      `${API_URL}/car/?page=${page}&limit=${limit}&featured=${featured}`,
     );
     const data = await response.json();
     return data;
@@ -32,7 +32,7 @@ const fetchCar = async ( _id = null ) => {
     return "";
   }
   try {
-    const response = await fetch(`${API_URL}/${_id}`);
+    const response = await fetch(`${API_URL}/car/${_id}`);
     const car = await response.json();
     return car;
   } catch (err) {
@@ -71,7 +71,7 @@ const addCar = async (carData) => {
       formData.append("image", image);
     }
 
-    const res = await fetch(`${API_URL}/add-car`, {
+    const res = await fetch(`${API_URL}/car`, {
       method: "POST",
       body: formData,
     });
@@ -107,7 +107,7 @@ const updateCar = async (id, carData) => {
       }
     });
 
-    const res = await fetch(`${API_URL}/${id}`, {
+    const res = await fetch(`${API_URL}/car/${id}`, {
       method: "PATCH",
       body: formData, 
     });
@@ -126,7 +126,7 @@ const updateCar = async (id, carData) => {
 
 const deleteCar = async (id) =>{
   try{
-    const res = await fetch(`${API_URL}/${id}`,{
+    const res = await fetch(`${API_URL}/car/${id}`,{
       method:"DELETE"
     })
     const data = await res.json()

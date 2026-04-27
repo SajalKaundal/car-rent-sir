@@ -18,7 +18,7 @@ import { useState } from "react";
 const App = () => {
   const isOwnerPath = useLocation().pathname.startsWith("/owner");
   const [authScreen, setAuthScreen] = useState("login");
-  console.log(authScreen)
+  // console.log(authScreen)
   return (
     <div
       style={{

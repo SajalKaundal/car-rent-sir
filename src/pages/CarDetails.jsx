@@ -8,18 +8,18 @@ import { BsFillFuelPumpFill } from "react-icons/bs";
 import { FaGear } from "react-icons/fa6";
 import "./CarDetails.css";
 import { fetchCar } from "../services/carServices";
-import { cartoonify } from "@cloudinary/url-gen/actions/effect";
+import { addBooking } from "../services/bookingsServices";
 
 const CarDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  
+
   // const car = dummyCarData.find((car) => car._id === id);
   const [car, setCar] = useState({
     _id: "",
     owner: "",
     brand: "",
-    image: "",
+    image: null,
     year: 0,
     category: "",
     seating_capacity: 0,
@@ -31,75 +31,52 @@ const CarDetails = () => {
     createdAt: "",
     feature: null,
   });
-  const [pickupLocation, setPickupLocation] = useState("");
+
+  const [bookingData, setBookingData] = useState({
+    userId: "70user001",
+    pickupLocation: "",
+    pickupDate: "",
+    returnDate: "",
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setBookingData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const result = await addBooking({
+        carId: car._id,
+        ...bookingData,
+      });
+
+      console.log("Booking success:", result);
+      alert("Booking created successfully");
+    } catch (err) {
+      console.error(err.message);
+      alert(err.message);
+    }
+  };
+
   useEffect(() => {
     const fetchCarDetails = async () => {
       try {
         const car = await fetchCar(id);
         setCar(car);
-        console.log(car)
+        // console.log(car)
       } catch (err) {
         console.log(err.message);
       }
     };
     fetchCarDetails();
   }, [id]);
+
   return (
-    // <div className="row m-5">
-    //   <div className="mb-2">
-    //     <button className="btn btn-outline-dark" onClick={() => navigate("/")}>
-    //       Back
-    //     </button>
-    //   </div>
-    //   <div className="col-lg-6">
-    //     <div className="card">
-    //       <img className="card-img-top" src={car.image} alt="Card image cap" />
-    //       <div className="card-body">
-    //         <h5 className="card-title">
-    //           <FaIndianRupeeSign />
-    //           {`${car.pricePerDay}/Day`}
-    //         </h5>
-    //       </div>
-    //       <ul className="list-group list-group-flush">
-    //         <li className="list-group-item">{`${car.brand}/${car.category} `}</li>
-    //         <li className="list-group-item">{car.year}</li>
-    //         <li className="list-group-item"><IoPerson />{` - ${car.seating_capacity}`}</li>
-    //         <li className="list-group-item"><BsFillFuelPumpFill />{` - ${car.fuel_type}`}</li>
-    //         <li className="list-group-item"><FaGear />{` - ${car.transmission}`}</li>
-    //       </ul>
-    //     </div>
-    //   </div>
-    //   <div className="mt-lg-0 mt-sm-5 col-lg-6">
-    //     <div>
-    //       <label className="form-label">Pickup Location</label>
-    //       <select
-    //         className="form-select"
-    //         value={pickupLocation}
-    //         onChange={(e) => setPickupLocation(e.target.value)}
-    //       >
-    //         <option value="" disabled>
-    //           Pickup Location
-    //         </option>
-    //         {cityList.map((city) => (
-    //           <option key={city} value={city}>
-    //             {city}
-    //           </option>
-    //         ))}
-    //       </select>
-    //     </div>
-    //     <div>
-    //       <label className="form-label">PickUp Date</label>
-    //       <input type="date" id="pickup-date" className="form-control" />
-    //     </div>
-    //     <div>
-    //       <label className="form-label">Return Date</label>
-    //       <input type="date" id="return-date" className="form-control" />
-    //     </div>
-    //     <div className="mt-2">
-    //       <button className="btn btn-success form-check">Rent Now</button>
-    //     </div>
-    //   </div>
-    // </div>
     <div className="container my-5">
       {/* Back Button */}
       <button
@@ -166,41 +143,65 @@ const CarDetails = () => {
 
         {/* RIGHT SIDE - BOOKING FORM */}
         <div className="col-lg-6">
-          <div className="card border-0 shadow p-4 booking-card">
-            <h4 className="fw-bold mb-4">Book This Car</h4>
+          <form onSubmit={handleSubmit}>
+            <div className="card border-0 shadow p-4 booking-card">
+              <h4 className="fw-bold mb-4">Book This Car</h4>
 
-            <div className="mb-3">
-              <label className="form-label fw-semibold">Pickup Location</label>
-              <select
-                className="form-select"
-                value={pickupLocation}
-                onChange={(e) => setPickupLocation(e.target.value)}
-              >
-                <option value="" disabled>
-                  Select Location
-                </option>
-                {cityList.map((city) => (
-                  <option key={city} value={city}>
-                    {city}
+              {/* Pickup Location */}
+              <div className="mb-3">
+                <label className="form-label fw-semibold">
+                  Pickup Location
+                </label>
+                <select
+                  className="form-select"
+                  name="pickupLocation"
+                  value={bookingData.pickupLocation}
+                  onChange={handleChange}
+                >
+                  <option value="" disabled>
+                    Select Location
                   </option>
-                ))}
-              </select>
-            </div>
+                  {cityList.map((city) => (
+                    <option key={city} value={city}>
+                      {city}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-            <div className="mb-3">
-              <label className="form-label fw-semibold">Pickup Date</label>
-              <input type="date" className="form-control" />
-            </div>
+              {/* Pickup Date */}
+              <div className="mb-3">
+                <label className="form-label fw-semibold">Pickup Date</label>
+                <input
+                  type="date"
+                  className="form-control"
+                  name="pickupDate"
+                  value={bookingData.pickupDate}
+                  onChange={handleChange}
+                />
+              </div>
 
-            <div className="mb-4">
-              <label className="form-label fw-semibold">Return Date</label>
-              <input type="date" className="form-control" />
-            </div>
+              {/* Return Date */}
+              <div className="mb-4">
+                <label className="form-label fw-semibold">Return Date</label>
+                <input
+                  type="date"
+                  className="form-control"
+                  name="returnDate"
+                  value={bookingData.returnDate}
+                  onChange={handleChange}
+                />
+              </div>
 
-            <button className="btn btn-success w-100 py-2 fw-bold">
-              Rent Now
-            </button>
-          </div>
+              {/* Submit Button */}
+              <button
+                type="submit"
+                className="btn btn-success w-100 py-2 fw-bold"
+              >
+                Rent Now
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>

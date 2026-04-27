@@ -19,7 +19,7 @@ function ManageBookings() {
     //   dummyMyBooking
     // );
   }, [API_URL]);
-  console.log(dummyMyBooking);
+  // console.log(dummyMyBooking);
   return (
     <div>
       <h5 className="fw-bold mb-3">Manage Bookings</h5>
