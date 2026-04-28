@@ -13,7 +13,7 @@ const Hero = () => {
       />
       <div className="hero">
         <div className="hero-text">
-          <p>Luxuary is here</p>
+          <p>Luxury Is Here</p>
         </div>
         <div className="row container mt-2">
           <div className="col-lg-3">

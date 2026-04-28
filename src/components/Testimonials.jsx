@@ -8,20 +8,30 @@ const Testimonials = () => {
         <div className="row gy-3">
           {testimonials.map((data) => {
             return (
-              <div className="col-lg-3" key={data._id}>
-                <div className="card-text d-">
+              <div className="col-lg-3 d-flex" key={data._id}>
+                <div className="card w-100 h-100 shadow-sm d-flex flex-column">
                   <img
                     src={data.img}
-                    alt="here is an image"
-                    className="img-fluid image-testimonial"
+                    alt="testimonial"
+                    className="card-img-top"
+                    style={{ height: "180px", objectFit: "cover" }}
                     loading="lazy"
                   />
-                  <div className="mt-5">
-                    <p>{data.name}</p>
-                    <p>{data.comment}</p>
+
+                  <div className="card-body d-flex flex-column">
+                    <h6 className="fw-bold">{data.name}</h6>
+
+                    <p
+                      className="flex-grow-1 text-muted"
+                      style={{ overflow: "hidden" }}
+                    >
+                      {data.comment}
+                    </p>
+
+                    <hr />
+
+                    <p className="mb-0">Customer Rating: {data.rating}</p>
                   </div>
-                  <hr />
-                  <p>Customer Rating: {data.rating}</p>
                 </div>
               </div>
             );

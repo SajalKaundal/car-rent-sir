@@ -1,25 +1,23 @@
 import { useEffect, useState } from "react";
-import { dummyMyBooking } from "../../assets/assests";
+import { fetchAllBookings } from "../../services/bookingsServices";
+
 function ManageBookings() {
   const API_URL = import.meta.env.VITE_API_URL;
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
-    const fetchBookings = async () => {
+    const fetchBookingsData = async () => {
       try {
-        const response = await fetch(`${API_URL}/bookings/`);
-        const data = await response.json();
-        setBookings(data.bookings);
+        const bookings = await fetchAllBookings();
+        setBookings(bookings);
       } catch (err) {
         console.error(err.message);
       }
     };
-    fetchBookings();
-    // setBookings(
-    //   dummyMyBooking
-    // );
+
+    fetchBookingsData();
   }, [API_URL]);
-  // console.log(dummyMyBooking);
+
   return (
     <div>
       <h5 className="fw-bold mb-3">Manage Bookings</h5>
@@ -38,43 +36,51 @@ function ManageBookings() {
           </thead>
 
           <tbody>
-            {bookings.map((b, index) => (
-              <tr key={b._id}>
-                <td>{index + 1}</td>
-                <td>{b.user}</td>
-                <td>{b.car.owner}</td>
-                <td>{b.pickupDate}</td>
-
-                <td>
-                  <span
-                    className={`badge ${
-                      b.status === "confirmed"
-                        ? "bg-success"
-                        : "bg-warning text-dark"
-                    }`}
-                  >
-                    {b.status}
-                  </span>
-                </td>
-
-                <td>
-                  <button
-                    disabled={
-                      b.status === "confirmed" || b.status === "cancelled"
-                    }
-                    className="btn btn-sm btn-success me-2"
-                  >
-                    Approve
-                  </button>
-                  <button
-                    disabled={b.status === "cancelled"}
-                    className="btn btn-sm btn-danger"
-                  >
-                    Cancel
-                  </button>
+            {bookings.length === 0 ? (
+              <tr>
+                <td colSpan="6" className="text-center py-4">
+                  No bookings available
                 </td>
               </tr>
-            ))}
+            ) : (
+              bookings.map((b, index) => (
+                <tr key={b._id}>
+                  <td>{index + 1}</td>
+                  <td>{b.userId}</td>
+                  <td>{b.car.brand}</td>
+                  <td>{new Date(b.pickupDate).toLocaleDateString()}</td>
+
+                  <td>
+                    <span
+                      className={`badge ${
+                        b.status === "confirmed"
+                          ? "bg-success"
+                          : "bg-warning text-dark"
+                      }`}
+                    >
+                      {b.status}
+                    </span>
+                  </td>
+
+                  <td>
+                    <button
+                      disabled={
+                        b.status === "confirmed" || b.status === "cancelled"
+                      }
+                      className="btn btn-sm btn-success me-2"
+                    >
+                      Approve
+                    </button>
+                    <button
+                      disabled={b.status === "cancelled"}
+                      className="btn btn-sm btn-danger"
+                    >
+                      Cancel
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
