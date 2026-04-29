@@ -1,19 +1,26 @@
 import { useState } from "react";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import "./SignUp.css";
-import { signInWithPopup } from "firebase/auth";
-import { auth,provider } from "../../../firebase/firebaseConfig";
-import { GoogleAuthProvider } from "firebase/auth";
+import { auth, provider } from "../../../firebase/firebaseConfig";
+import {
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 function SignUp({ setAuthScreen }) {
   const [showPassword, setShowPassword] = useState(true);
   const [showConfirm, setShowConfirm] = useState(true);
-
+  const [signinError, setSigninError] = useState(null);
   const [form, setForm] = useState({
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
+  const [loading, setLoading] = useState(false);
+  const [verifyMessage, setVerifyMessage] = useState("");
+  const [verifyError, setVerifyError] = useState("");
+  const [isSent, setIsSent] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -23,36 +30,74 @@ function SignUp({ setAuthScreen }) {
     e.preventDefault();
 
     if (form.password !== form.confirmPassword) {
-      alert("Passwords do not match");
+      setSigninError("Password do not match");
       return;
     }
+    createUserWithEmailAndPassword(auth, form.email, form.password)
+      .then((userCredential) => {
+        // Signed up
+        const user = userCredential.user;
+        // ...
+        setAuthScreen("login");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(`${errorCode} : ${errorMessage}`);
+        setSigninError(errorMessage);
+        // ..
+      });
 
-    console.log(form);
+    // console.log(form);
   };
 
-   const handleGoogleLogin = () => {
-      signInWithPopup(auth, provider)
-        .then((result) => {
-          // This gives you a Google Access Token. You can use it to access the Google API.
-          const credential = GoogleAuthProvider.credentialFromResult(result);
-          const token = credential.accessToken;
-          // The signed-in user info.
-          const user = result.user;
-          // IdP data available using getAdditionalUserInfo(result)
-          // ...
-          setAuthScreen("")
-        })
-        .catch((error) => {
-          // Handle Errors here.
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          // The email of the user's account used.
-          const email = error.customData.email;
-          // The AuthCredential type that was used.
-          const credential = GoogleAuthProvider.credentialFromError(error);
-          // ...
-        });
-    };
+  const handleGoogleLogin = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
+        setAuthScreen("");
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
+  };
+
+  const handleSendVerification = async () => {
+    try {
+      setLoading(true);
+      setVerifyError("");
+      setVerifyMessage("");
+
+      const user = auth.currentUser;
+
+      if (!user) {
+        setVerifyError("Please sign up/login first");
+        return;
+      }
+
+      await sendEmailVerification(user);
+
+      setVerifyMessage("Verification email sent");
+      setIsSent(true);
+    } catch (err) {
+      setVerifyError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className="signup-overlay">
       <div className="signup-popup shadow-lg">
@@ -62,8 +107,10 @@ function SignUp({ setAuthScreen }) {
           onClick={() => setAuthScreen("login")}
         ></button>
 
-        <h3 className="text-center fw-bold mb-4">Create Account</h3>
-
+        <h3 className="text-center fw-bold mb-2">Create Account</h3>
+        <span className="d-block text-danger" style={{ minHeight: "20px" }}>
+          {signinError}
+        </span>
         <form onSubmit={handleSubmit}>
           {/* Name */}
           <div className="mb-3">
@@ -81,14 +128,17 @@ function SignUp({ setAuthScreen }) {
           {/* Email */}
           <div className="mb-3">
             <label className="form-label">Email</label>
-            <input
-              type="email"
-              name="email"
-              className="form-control"
-              placeholder="Enter your email"
-              onChange={handleChange}
-              required
-            />
+
+            <div className="input-group">
+              <input
+                type="email"
+                name="email"
+                className="form-control"
+                placeholder="Enter your email"
+                onChange={handleChange}
+                required
+              />
+            </div>
           </div>
 
           {/* Password */}
@@ -130,14 +180,7 @@ function SignUp({ setAuthScreen }) {
           </div>
 
           {/* Button */}
-          <button
-            className="btn btn-primary w-100 mt-2"
-            onClick={() => {
-              setAuthScreen("login");
-            }}
-          >
-            Sign Up
-          </button>
+          <button className="btn btn-primary w-100 mt-2">Sign Up</button>
           {/* {Sign In with google button} */}
           <button
             type="button"
