@@ -1,9 +1,31 @@
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { MdCarRental } from "react-icons/md";
 import { NavLink, useNavigate } from "react-router-dom";
+import { auth } from "../firebase/firebaseConfig";
 
-const Navbar = ({setAuthScreen}) => {
+const Navbar = ({ setAuthScreen }) => {
   const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      console.log("User logged out");
+    } catch (error) {
+      console.error("Error logging out:", error.message);
+    }
+  };
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser("");
+      }
+    });
+  },[user]);
+
   return (
     <div>
       <nav
@@ -14,9 +36,7 @@ const Navbar = ({setAuthScreen}) => {
           <NavLink className="navbar-brand" to="/">
             <MdCarRental />
             Car
-            <span className="text-danger fs-4" >
-              Rent
-            </span>
+            <span className="text-danger fs-4">Rent</span>
           </NavLink>
           <button
             className="navbar-toggler"
@@ -58,13 +78,23 @@ const Navbar = ({setAuthScreen}) => {
                 </button>
               </div>
               <div className="d-flex my-1 mx-1">
-                <button
-                  className="btn btn-primary"
-                  // onClick={() => navigate("/")}
-                  onClick={()=>setAuthScreen("login")}
-                >
-                  Login
-                </button>
+                {!user ? (
+                  <button
+                    className="btn btn-primary"
+                    // onClick={() => navigate("/")}
+                    onClick={() => setAuthScreen("login")}
+                  >
+                    Login
+                  </button>
+                ) : (
+                  <button
+                    className="btn btn-dark"
+                    // onClick={() => navigate("/")}
+                    onClick={handleLogout}
+                  >
+                    LogOut
+                  </button>
+                )}
               </div>
             </div>
           </div>

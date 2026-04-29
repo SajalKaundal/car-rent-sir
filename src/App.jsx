@@ -13,11 +13,20 @@ import NotFound from "./pages/NotFound";
 import EditCar from "./pages/owner/EditCar";
 import ListYourCar from "./pages/ListYourCar";
 import AuthScreen from "./pages/authentication/AuthScreen";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase/firebaseConfig";
 
 const App = () => {
   const isOwnerPath = useLocation().pathname.startsWith("/owner");
-  const [authScreen, setAuthScreen] = useState("login");
+  const [authScreen, setAuthScreen] = useState("");
+  useEffect(()=>{
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        setAuthScreen("login")
+      }
+    });
+  },[])
   // console.log(authScreen)
   return (
     <div
