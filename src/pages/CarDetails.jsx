@@ -9,8 +9,10 @@ import { FaGear } from "react-icons/fa6";
 import "./CarDetails.css";
 import { fetchCar } from "../services/carServices";
 import { addBooking } from "../services/bookingsServices";
+import { auth } from "../firebase/firebaseConfig";
 
 const CarDetails = () => {
+  const user = auth.currentUser
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -66,7 +68,7 @@ const CarDetails = () => {
   useEffect(() => {
     const fetchCarDetails = async () => {
       try {
-        const car = await fetchCar(id);
+        const car = await fetchCar(user,id);
         setCar(car);
         // console.log(car)
       } catch (err) {
@@ -74,7 +76,7 @@ const CarDetails = () => {
       }
     };
     fetchCarDetails();
-  }, [id]);
+  }, [id,user]);
 
   return (
     <div className="container my-5">

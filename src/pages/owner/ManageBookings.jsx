@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import { fetchAllBookings } from "../../services/bookingsServices";
+import { auth } from "../../firebase/firebaseConfig";
 
 function ManageBookings() {
+  const user = auth.currentUser
   const API_URL = import.meta.env.VITE_API_URL;
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
     const fetchBookingsData = async () => {
       try {
-        const bookings = await fetchAllBookings();
+        const bookings = await fetchAllBookings(user);
         setBookings(bookings);
       } catch (err) {
         console.error(err.message);
@@ -16,7 +18,7 @@ function ManageBookings() {
     };
 
     fetchBookingsData();
-  }, [API_URL]);
+  }, [API_URL,user]);
 
   return (
     <div>

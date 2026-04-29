@@ -7,52 +7,56 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import { auth, provider } from "../../../firebase/firebaseConfig";
+import { syncUser } from "../../../services/userServices";
 
 export default function Login({ setAuthScreen }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(true);
   const [loginError, setLoginError] = useState(null);
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        setAuthScreen(null);
-        const user = userCredential.user;
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        setLoginError(errorMessage);
-        console.log(errorCode + ":" + errorMessage);
-      });
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password,
+      );
+
+      const user = userCredential.user;
+
+      const data = await syncUser(user);
+
+      if (!data) {
+        throw new Error("Invalid User");
+      }
+
+      setAuthScreen(null);
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      setLoginError(errorMessage);
+      console.log(errorCode + ":" + errorMessage);
+    }
   };
 
-  const handleGoogleLogin = () => {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        // The signed-in user info.
-        const user = result.user;
-        // IdP data available using getAdditionalUserInfo(result)
-        // ...
-        setAuthScreen("");
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        setLoginError(errorMessage);
-        // ...
-      });
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      const data = await syncUser(user);
+      setAuthScreen("");
+    } catch (error) {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.customData.email;
+      // The AuthCredential type that was used.
+      const credential = GoogleAuthProvider.credentialFromError(error);
+      setLoginError(errorMessage);
+      // ...
+    }
   };
 
   return (

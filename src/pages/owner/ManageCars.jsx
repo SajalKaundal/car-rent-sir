@@ -2,15 +2,17 @@ import { useEffect, useState } from "react";
 // import { dummyCarData } from "../../assets/assests";
 import { useNavigate } from "react-router";
 import { fetchCars, deleteCar } from "../../services/carServices";
+import { auth } from "../../firebase/firebaseConfig";
 
 function ManageCars() {
+  const user = auth.currentUser
   const [cars, setCars] = useState([]);
   const [carNumber, setCarNumber] = useState(100);
   const navigate = useNavigate();
 
   const onDelete = async (id) => {
     try {
-      const result = await deleteCar(id);
+      const result = await deleteCar(user,id);
       if (!result.success) {
         throw new Error(result.message)
       }
@@ -24,7 +26,7 @@ function ManageCars() {
   useEffect(() => {
     const getCars = async () => {
       try {
-        const data = await fetchCars({
+        const data = await fetchCars(user,{
           limit: 100,
         });
         setCars(data.cars);
@@ -33,7 +35,7 @@ function ManageCars() {
       }
     };
     getCars();
-  }, []);
+  }, [user]);
 
   return (
     <div>

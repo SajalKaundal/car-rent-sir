@@ -6,9 +6,11 @@ import Title from "../components/Title";
 import useDebounce from "../utils/useDebounce";
 import Pagination from "../components/Pagination";
 import { fetchCars, fetchSearchCar } from "../services/carServices";
+import { auth } from "../firebase/firebaseConfig";
 const Cars = () => {
+  const user = auth.currentUser
   const [searchCar, setSearchCar] = useState("");
-  const [carsLoaded, setCarsLoaded] = useState(9);
+  const carsLoaded =9
   const debounceSearch = useDebounce(searchCar, 700);
   const [data, setData] = useState({
     cars: [],
@@ -17,21 +19,20 @@ const Cars = () => {
     totalPages: 1,
   });
   const [page, setPage] = useState(1);
-
   useEffect(() => {
     const controller = new AbortController();
     const getCars = async () => {
       try {
         let result;
         if (debounceSearch) {
-          result = await fetchSearchCar({
+          result = await fetchSearchCar(user,{
             page,
             limit: carsLoaded,
             search: debounceSearch,
             signal: controller.signal,
           });
         } else {
-          result = await fetchCars({
+          result = await fetchCars(user,{
             page,
             limit: carsLoaded,
           });
@@ -44,7 +45,7 @@ const Cars = () => {
     getCars();
 
     return () => controller.abort();
-  }, [debounceSearch, carsLoaded, page]);
+  }, [debounceSearch, carsLoaded, page,user]);
   useEffect(() => {
     setPage(1);
   }, [debounceSearch]);

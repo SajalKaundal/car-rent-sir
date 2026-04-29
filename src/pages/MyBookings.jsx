@@ -3,17 +3,18 @@ import { useEffect, useState } from "react";
 import Booking from "../components/Booking";
 import Title from "../components/Title";
 import { fetchBookings } from "../services/bookingsServices";
+import { auth } from "../firebase/firebaseConfig";
 const MyBookings = () => {
   // let count = 1;
+  const user = auth.currentUser
   const [bookings, setBookings] = useState([]);
-
   useEffect(() => {
    const getBookings = async ()=>{
-    const data = await fetchBookings('70user001')
+    const data = await fetchBookings(user,'70user001')
     setBookings(data || [])
    }
    getBookings()
-  }, []);
+  }, [user]);
   return (
     <div className="container mt-4">
       <Title

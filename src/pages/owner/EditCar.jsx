@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 // import { dummyCarData } from "../../assets/assests";
 import { fetchCar, updateCar } from "../../services/carServices";
+import { auth } from "../../firebase/firebaseConfig";
 
 function EditCar() {
+
+  const user = auth.currentUser
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -37,7 +40,7 @@ function EditCar() {
   useEffect(() => {
     const getCar = async () => {
       try {
-        const car = await fetchCar(id);
+        const car = await fetchCar(user, id);
         setCarData(car);
         setOriginalCar(car);
       } catch (err) {
@@ -93,7 +96,7 @@ function EditCar() {
     // console.log("Updated Car:", carData);
     try {
       const updatedCar = checkUpdate();
-      const result = await updateCar(id, updatedCar);
+      const result = await updateCar(user,id, updatedCar);
       if (!result.success) {
         throw new Error(result.message);
       }

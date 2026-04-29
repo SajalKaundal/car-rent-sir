@@ -1,4 +1,9 @@
 import { Route, Routes, useLocation } from "react-router";
+import { useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+
+import { auth } from "./firebase/firebaseConfig";
+
 import CarDetails from "./pages/CarDetails";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
@@ -13,48 +18,71 @@ import NotFound from "./pages/NotFound";
 import EditCar from "./pages/owner/EditCar";
 import ListYourCar from "./pages/ListYourCar";
 import AuthScreen from "./pages/authentication/AuthScreen";
-import { useEffect, useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./firebase/firebaseConfig";
 
 const App = () => {
   const isOwnerPath = useLocation().pathname.startsWith("/owner");
+
   const [authScreen, setAuthScreen] = useState("");
-  useEffect(()=>{
-    onAuthStateChanged(auth, (user) => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (!user) {
-        setAuthScreen("login")
+        setAuthScreen("login");
       }
+      // } else if (!user.emailVerified) {
+      //   setAuthScreen("verify");
+      // }
+      else {
+        setAuthScreen("");
+      }
+
+      setLoading(false);
     });
-  },[])
-  // console.log(authScreen)
+
+    return () => unsubscribe();
+  }, []);
+
   return (
-    <div
-      style={{
-        overflow: !authScreen ? "auto" : "hidden",
-        height: !authScreen ? "auto" : "100vh",
-      }}
-    >
-      {!isOwnerPath && <Navbar setAuthScreen={setAuthScreen} />}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/cars" element={<Cars />} />
-        <Route path="/car-details/:id" element={<CarDetails />} />
-        <Route path="/my-bookings" element={<MyBookings />} />
-        <Route path="/list-your-car" element={<ListYourCar />} />
-        <Route path="/owner/dashboard" element={<Dashboard />}>
-          <Route index element={<AddCar />} />
-          <Route path="manage-bookings" element={<ManageBookings />} />
-          <Route path="manage-cars" element={<ManageCars />} />
-          <Route path="edit-car/:id" element={<EditCar />} />
-        </Route>
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-      {authScreen && (
-        <AuthScreen authScreen={authScreen} setAuthScreen={setAuthScreen} />
+    <>
+      {loading ? (
+        <div className="d-flex justify-content-center align-items-center vh-100">
+          <div className="spinner-border" role="status"></div>
+        </div>
+      ) : (
+        <div
+          style={{
+            overflow: !authScreen ? "auto" : "hidden",
+            height: !authScreen ? "auto" : "100vh",
+          }}
+        >
+          {!isOwnerPath && <Navbar setAuthScreen={setAuthScreen} />}
+
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/cars" element={<Cars />} />
+            <Route path="/car-details/:id" element={<CarDetails />} />
+            <Route path="/my-bookings" element={<MyBookings />} />
+            <Route path="/list-your-car" element={<ListYourCar />} />
+
+            <Route path="/owner/dashboard" element={<Dashboard />}>
+              <Route index element={<AddCar />} />
+              <Route path="manage-bookings" element={<ManageBookings />} />
+              <Route path="manage-cars" element={<ManageCars />} />
+              <Route path="edit-car/:id" element={<EditCar />} />
+            </Route>
+
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+
+          {authScreen && (
+            <AuthScreen authScreen={authScreen} setAuthScreen={setAuthScreen} />
+          )}
+
+          {!isOwnerPath && <Footer />}
+        </div>
       )}
-      {!isOwnerPath && <Footer />}
-    </div>
+    </>
   );
 };
 

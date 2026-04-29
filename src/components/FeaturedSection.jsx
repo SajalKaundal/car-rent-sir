@@ -4,25 +4,27 @@ import CarCard from "./CarCard";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { fetchCars } from "../services/carServices";
+import { auth } from "../firebase/firebaseConfig";
 // import { useState } from "react";
 const FeaturedSection = () => {
+  const user = auth.currentUser;
   const navigate = useNavigate();
   // const [visibleCars, setVisibleCars] = useState(3);
   const [featuredCars, setFeaturedCars] = useState([]);
 
   useEffect(() => {
-    const getCars = async ()=>{
-      try{
-        const data = await fetchCars({
-          limit:3,
-          featured:true
-        })
-        setFeaturedCars(data.cars)
-      }catch(err){
-        console.error(err.message)
+    const getCars = async () => {
+      try {
+        const data = await fetchCars(user, {
+          limit: 3,
+          featured: true,
+        });
+        setFeaturedCars(data.cars);
+      } catch (err) {
+        console.error(err.message);
       }
-    }
-    getCars()
+    };
+    getCars();
   }, []);
   return (
     <div className="container mt-5">

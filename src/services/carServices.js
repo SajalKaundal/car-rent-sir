@@ -1,11 +1,18 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
 //fetch Car when searching
-const fetchSearchCar = async ({ page = 1, limit = 9, search = "", signal }) => {
+const fetchSearchCar = async (user,{ page = 1, limit = 9, search = "", signal }) => {
   try {
+    const token = await user.getIdToken()
     const response = await fetch(
       `${API_URL}/car/?page=${page}&limit=${limit}&search=${search}`,
-      { signal },
+      {
+        signal,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      },
     );
     const data = await response.json();
     return data;
@@ -14,10 +21,16 @@ const fetchSearchCar = async ({ page = 1, limit = 9, search = "", signal }) => {
   }
 };
 
-const fetchCars = async ({ page = 1, limit = 3, featured = false }) => {
+const fetchCars = async (user,{ page = 1, limit = 3, featured = false }) => {
   try {
+    const token = await user.getIdToken()
     const response = await fetch(
-      `${API_URL}/car/?page=${page}&limit=${limit}&featured=${featured}`,
+      `${API_URL}/car/?page=${page}&limit=${limit}&featured=${featured}`,{
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
     const data = await response.json();
     return data;
@@ -26,13 +39,19 @@ const fetchCars = async ({ page = 1, limit = 3, featured = false }) => {
   }
 };
 
-const fetchCar = async ( _id = null ) => {
+const fetchCar = async (user,_id = null) => {
   if (!_id) {
     console.log("_id is required");
     return "";
   }
   try {
-    const response = await fetch(`${API_URL}/car/${_id}`);
+    const token = await user.getIdToken()
+    const response = await fetch(`${API_URL}/car/${_id}`,{
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+    });
     const car = await response.json();
     return car;
   } catch (err) {
@@ -40,8 +59,9 @@ const fetchCar = async ( _id = null ) => {
   }
 };
 
-const addCar = async (carData) => {
+const addCar = async (user,carData) => {
   try {
+    const token = await user.getIdToken()
     const {
       brand = "",
       year = "",
@@ -74,6 +94,10 @@ const addCar = async (carData) => {
     const res = await fetch(`${API_URL}/car`, {
       method: "POST",
       body: formData,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      }
     });
 
     const data = await res.json();
@@ -93,8 +117,9 @@ const addCar = async (carData) => {
   }
 };
 
-const updateCar = async (id, carData) => {
+const updateCar = async (user,id, carData) => {
   try {
+    const token = await user.getIdToken()
     const formData = new FormData();
 
     Object.keys(carData).forEach((key) => {
@@ -109,7 +134,11 @@ const updateCar = async (id, carData) => {
 
     const res = await fetch(`${API_URL}/car/${id}`, {
       method: "PATCH",
-      body: formData, 
+      body: formData,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      }
     });
 
     const data = await res.json();
@@ -124,19 +153,23 @@ const updateCar = async (id, carData) => {
   }
 };
 
-const deleteCar = async (id) =>{
-  try{
-    const res = await fetch(`${API_URL}/car/${id}`,{
-      method:"DELETE"
-    })
-    const data = await res.json()
-    if(!res.ok){
-      throw new Error(data.message)
+const deleteCar = async (user,id) => {
+  try {
+    const token = await user.getIdToken()
+    const res = await fetch(`${API_URL}/car/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(data.message);
     }
     return data;
-
-  }catch(err){
-    console.error(err.message)
+  } catch (err) {
+    console.error(err.message);
   }
-}
-export { fetchSearchCar, fetchCars, fetchCar, addCar,updateCar, deleteCar };
+};
+export { fetchSearchCar, fetchCars, fetchCar, addCar, updateCar, deleteCar };

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { addCar } from "../../services/carServices";
+import { auth } from "../../firebase/firebaseConfig";
 const AddCar = () => {
+  const user = auth.currentUser
   const initialState = {
     brand: "",
     year: "",
@@ -38,7 +40,7 @@ const AddCar = () => {
     e.preventDefault();
 
     try {
-      const result = await addCar(carData);
+      const result = await addCar(user,carData);
 
       if (!result.success) {
         throw new Error(result.message);

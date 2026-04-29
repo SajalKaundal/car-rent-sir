@@ -12,9 +12,15 @@ const handleResponse = async (response) => {
 };
 
 // GET ALL BOOKINGS
-const fetchAllBookings = async () => {
+const fetchAllBookings = async (user) => {
   try {
-    const response = await fetch(`${API_URL}/bookings`);
+    const token = await user.getIdToken();
+    const response = await fetch(`${API_URL}/bookings`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return await handleResponse(response);
   } catch (err) {
     console.error("Fetch All Bookings Error:", err.message);
@@ -23,13 +29,19 @@ const fetchAllBookings = async () => {
 };
 
 // GET USER BOOKINGS
-const fetchBookings = async (userId) => {
+const fetchBookings = async (user, userId) => {
   try {
+    const token = await user.getIdToken();
     if (!userId) {
       throw new Error("userId required");
     }
 
-    const response = await fetch(`${API_URL}/bookings/user/${userId}`);
+    const response = await fetch(`${API_URL}/bookings/user/${userId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return await handleResponse(response);
   } catch (err) {
     console.error("Fetch User Bookings Error:", err.message);
@@ -38,7 +50,7 @@ const fetchBookings = async (userId) => {
 };
 
 // CREATE BOOKING
-const addBooking = async ({
+const addBooking = async (user,{
   userId,
   carId,
   pickupLocation,
@@ -46,6 +58,7 @@ const addBooking = async ({
   returnDate,
 }) => {
   try {
+    const token = await user.getIdToken()
     if (!userId || !carId || !pickupLocation || !pickupDate || !returnDate) {
       throw new Error("All fields are required");
     }
@@ -54,6 +67,7 @@ const addBooking = async ({
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         carId,
