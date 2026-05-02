@@ -8,6 +8,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { syncUser } from "../../../services/userServices";
+import { useNavigate } from "react-router";
 
 
 
@@ -25,7 +26,7 @@ function SignUp({ setAuthScreen }) {
   const [verifyMessage, setVerifyMessage] = useState("");
   const [verifyError, setVerifyError] = useState("");
   const [isSent, setIsSent] = useState(false);
-
+  const navigate = useNavigate()
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -60,6 +61,11 @@ function SignUp({ setAuthScreen }) {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       const data = await syncUser(user);
+       if(data.user.role === "admin") {
+        navigate("/owner/dashboard")
+      }else{
+        navigate("/")
+      }
       setAuthScreen("");
     } catch (error) {
       // Handle Errors here.

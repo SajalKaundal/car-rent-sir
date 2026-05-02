@@ -2,11 +2,11 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { MdCarRental } from "react-icons/md";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { auth } from "../firebase/firebaseConfig";
 
 const Navbar = ({ setAuthScreen }) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const handleLogout = async () => {
     try {
@@ -70,12 +70,12 @@ const Navbar = ({ setAuthScreen }) => {
                 </span>
               </div>
               <div className="d-flex my-1 mx-1">
-                <button
+                {/* <button
                   className="btn btn-dark"
                   onClick={() => navigate("/owner/dashboard")}
                 >
                   Dashboard
-                </button>
+                </button> */}
               </div>
               <div className="d-flex my-1 mx-1">
                 {!user ? (

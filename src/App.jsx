@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation } from "react-router";
+import { Route, Routes } from "react-router";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 
@@ -18,9 +18,11 @@ import NotFound from "./pages/NotFound";
 import EditCar from "./pages/owner/EditCar";
 import ListYourCar from "./pages/ListYourCar";
 import AuthScreen from "./pages/authentication/AuthScreen";
+import UserLayout from "./pages/layout/UserLayout";
+import AdminLayout from "./pages/layout/AdminLayout";
 
 const App = () => {
-  const isOwnerPath = useLocation().pathname.startsWith("/owner");
+  // const isOwnerPath = useLocation().pathname.startsWith("/owner");
 
   const [authScreen, setAuthScreen] = useState("");
   const [loading, setLoading] = useState(true);
@@ -56,20 +58,26 @@ const App = () => {
             height: !authScreen ? "auto" : "100vh",
           }}
         >
-          {!isOwnerPath && <Navbar setAuthScreen={setAuthScreen} />}
+          {/* {!isOwnerPath && <Navbar setAuthScreen={setAuthScreen} />} */}
 
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/cars" element={<Cars />} />
-            <Route path="/car-details/:id" element={<CarDetails />} />
-            <Route path="/my-bookings" element={<MyBookings />} />
-            <Route path="/list-your-car" element={<ListYourCar />} />
 
-            <Route path="/owner/dashboard" element={<Dashboard />}>
-              <Route index element={<AddCar />} />
-              <Route path="manage-bookings" element={<ManageBookings />} />
-              <Route path="manage-cars" element={<ManageCars />} />
-              <Route path="edit-car/:id" element={<EditCar />} />
+            <Route element={<UserLayout />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/cars" element={<Cars />} />
+              <Route path="/car-details/:id" element={<CarDetails />} />
+              <Route path="/my-bookings" element={<MyBookings />} />
+              <Route path="/list-your-car" element={<ListYourCar />} />
+            </Route>
+
+
+            <Route element={<AdminLayout />}>
+              <Route path="/owner/dashboard" element={<Dashboard />}>
+                <Route index element={<AddCar />} />
+                <Route path="manage-bookings" element={<ManageBookings />} />
+                <Route path="manage-cars" element={<ManageCars />} />
+                <Route path="edit-car/:id" element={<EditCar />} />
+              </Route>
             </Route>
 
             <Route path="*" element={<NotFound />} />
@@ -79,7 +87,7 @@ const App = () => {
             <AuthScreen authScreen={authScreen} setAuthScreen={setAuthScreen} />
           )}
 
-          {!isOwnerPath && <Footer />}
+          {/* {!isOwnerPath && <Footer />} */}
         </div>
       )}
     </>

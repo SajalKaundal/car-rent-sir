@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { dummyDashboardData } from "../../assets/assests";
-import OwnerNavBar from "../../components/owner/OwnerNavBar";
+// import OwnerNavBar from "../../components/owner/OwnerNavBar";
 import { NavLink, Outlet } from "react-router-dom";
 
 function Dashboard() {
@@ -19,7 +19,7 @@ function Dashboard() {
 
   return (
     <div className="bg-light min-vh-100">
-      <OwnerNavBar />
+      {/* <OwnerNavBar /> */}
 
       <div className="container mt-5">
         <div className="row g-4">

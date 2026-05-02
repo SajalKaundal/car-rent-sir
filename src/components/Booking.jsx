@@ -1,4 +1,3 @@
-
 export default function Booking({ booking, index }) {
   return (
     <div className="row">
@@ -6,7 +5,7 @@ export default function Booking({ booking, index }) {
         <div className="card shadow-sm h-100 align-middle justify-content-center">
           {/* Car Image */}
           <img
-            src={booking.car.image}
+            src={booking.car.image || ""}
             className="card-img-top"
             alt={booking.car.name}
             // style={{ height: "200px", objectFit: "cover" }}
@@ -49,12 +48,12 @@ export default function Booking({ booking, index }) {
           <div className="row">
             <div className="col-6 col-md-3 mb-2">
               <small className="text-muted">Pickup</small>
-              <div className="fw-semibold">{booking.pickupDate}</div>
+              <div className="fw-semibold">{booking.pickupDate.slice(0,10)}</div>
             </div>
 
             <div className="col-6 col-md-3 mb-2">
               <small className="text-muted">Return</small>
-              <div className="fw-semibold">{booking.returnDate}</div>
+              <div className="fw-semibold">{booking.returnDate.slice(0,10)}</div>
             </div>
 
             <div className="col-6 col-md-3 mb-2">

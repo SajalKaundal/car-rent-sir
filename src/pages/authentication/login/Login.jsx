@@ -8,12 +8,14 @@ import {
 } from "firebase/auth";
 import { auth, provider } from "../../../firebase/firebaseConfig";
 import { syncUser } from "../../../services/userServices";
+import { useNavigate } from "react-router";
 
 export default function Login({ setAuthScreen }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(true);
   const [loginError, setLoginError] = useState(null);
+  const navigate = useNavigate()
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -30,7 +32,11 @@ export default function Login({ setAuthScreen }) {
       if (!data) {
         throw new Error("Invalid User");
       }
-
+      if(data.user.role === "admin") {
+        navigate("/owner/dashboard")
+      }else{
+        navigate('/')
+      }
       setAuthScreen(null);
     } catch (error) {
       const errorCode = error.code;
@@ -45,6 +51,11 @@ export default function Login({ setAuthScreen }) {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       const data = await syncUser(user);
+       if(data.user.role === "admin") {
+        navigate("/owner/dashboard")
+      }else{
+        navigate("/")
+      }
       setAuthScreen("");
     } catch (error) {
       // Handle Errors here.
